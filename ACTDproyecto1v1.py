@@ -6,6 +6,8 @@
 
 import pandas as pd
 import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 from pgmpy.models import BayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
@@ -16,14 +18,99 @@ from pgmpy.factors.discrete import TabularCPD
 # In[2]:
 
 
-df_Cleveland = pd.read_csv('C:\\Users\\juand\\OneDrive\\Documents\\Andes\\10. Semestre\\Analítica computacional\\Proyectos\\Proyecto 1\\processed.cleveland.data',
-                           names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
+df_Cleveland = pd.read_csv('cleveland.data', names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
 
 
 # In[3]:
+#------------------------------HISTOGRAMAS------------------------------------------------------#
 
+# Colesterol:
 
-df_Cleveland
+hist = px.histogram(df_Cleveland, x="Chol", title="HISTOGRAMA DE COLESTEROL",
+                labels={"Chol": "Niveles de Colesterol", "count": "Frecuencia",})
+
+hist.update_layout(
+    title={
+        'text': "HISTOGRAMA DE COLESTEROL",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Niveles de Colesterol",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black')
+)
+hist.update_traces(marker_color='darkgreen')
+hist.show()
+
+# Edad:
+hist1 = px.histogram(df_Cleveland, x="Age", title="HISTOGRAMA DE EDAD",
+                labels={"Age": "Edad", "count": "Frecuencia",})
+
+hist1.update_layout(
+    title={
+        'text': "HISTOGRAMA DE EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Edad",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black')
+)
+hist1.update_traces(marker_color='purple')
+hist1.show()
+#-------------------PORCENTAJES-------------------------#
+
+# Hombres y mujeres
+datos_pie = {'Sexo': ['Hombres', 'Mujeres'], 'Cantidad': [df_Cleveland['Sex'].value_counts()[1], df_Cleveland['Sex'].value_counts()[0]]}
+pie_chart1 = px.pie(datos_pie, values='Cantidad', names='Sexo', 
+             color_discrete_sequence=['#F7BFBE','#2D7BB6'],  # Cambiar los colores de las secciones de la torta
+             hole=0.5,  # Agregar un agujero en el centro de la torta
+             title='DISTRIBUCIÓN DE GÉNERO',  # Agregar un título al gráfico
+             labels={'Cantidad': 'Cantidad de personas', 'Sexo': 'Género'},  # Cambiar los nombres de los ejes
+             template='seaborn',  # Cambiar el estilo del gráfico
+             )
+
+pie_chart1.update_layout(
+    legend=dict(
+        x=0.5,
+        y=0.9,
+        traceorder='normal',
+        font=dict(
+            size=14,
+        ),
+    ),
+)
+pie_chart1.show()
+
+# Azúcar en sangre tomada en ayunas
+datos_pie1 = {'Azucar': ['Menor a 120mg/dl ', 'Mayor a 120mg/dl '], 'Cantidad': [df_Cleveland['Fbs'].value_counts()[0], df_Cleveland['Fbs'].value_counts()[1]]}
+pie_chart2 = px.pie(datos_pie1, values='Cantidad', names='Azucar', 
+             color_discrete_sequence=['#2D7BB6','#FF0000'],  # Cambiar los colores de las secciones de la torta
+             hole=0.5,  # Agregar un agujero en el centro de la torta
+             title='DISTRIBUCIÓN DE TOMAS DE AZÚCAR EN SANGRE',  # Agregar un título al gráfico
+             labels={'Cantidad': 'Cantidad de personas', 'Azucar': 'Cantidad de azucar'},  # Cambiar los nombres de los ejes
+             template='seaborn',  # Cambiar el estilo del gráfico
+             )
+
+pie_chart2.update_layout(
+    legend=dict(
+        x=0.5,
+        y=0.9,
+        traceorder='normal',
+        font=dict(
+            size=14,
+        ),
+    ),
+)
+pie_chart2.show()
+
+print(df_Cleveland)
 
 
 # In[4]:
@@ -138,7 +225,4 @@ df_Cleveland
 
 
 # In[52]:
-
-
-df_Cleveland.corr()
 
