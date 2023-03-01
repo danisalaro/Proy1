@@ -1,76 +1,26 @@
-#!/usr/bin/env python
-# coding: utf-8
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Feb 28 19:39:49 2023
 
-# In[33]:
-
-
+@author: JUAN
+"""
+import dash
+from dash import dcc
+from dash import html
+from dash.dependencies import Input, Output
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+
 from pgmpy.models import BayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
 
 
-# # IMPORTAR DATAFRAME Y VER DATOS
 
-# In[3]:
+
 
 
 df_Cleveland = pd.read_csv('C:\\Users\\juand\\OneDrive\\Documents\\Andes\\10. Semestre\\Analítica computacional\\Proyectos\\Proyecto 1\\processed.cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
-
-
-# In[ ]:
-
-
-df_Cleveland
-
-
-# In[ ]:
-
-
-#df_Usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Num"]]
-
-
-# In[ ]:
-
-
-#df_Usar.describe()
-
-
-# # GRAFICAR LOS DATOS.
-
-# In[34]:
-
-
-plt.bar(df_Cleveland["Age"], height = df_Cleveland["Chol"])
-
-
-# In[35]:
-
-
-plt.bar(df_Cleveland["Age"], height = df_Cleveland["Trestbps"])
-
-
-# In[36]:
-
-
-plt.scatter(df_Cleveland["Age"],df_Cleveland["Trestbps"])
-
-
-# In[37]:
-
-
-plt.scatter(df_Cleveland["Age"],df_Cleveland["Chol"])
-
-
-# # AGRUPAR DATOS
-# 
-# # CAMBIAR VALORES DE PRESIÓN ARTERIAL
-
-# In[4]:
-
-
 # para valores entre 0 y 110, 1
 #para valores entre 110 y 130, 2
 #para valores entre 130 y 150, 3
@@ -82,13 +32,7 @@ df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=150)&(df_Clevelan
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=170)&(df_Cleveland["Trestbps"]>150),4,df_Cleveland["Trestbps"])
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=10000)&(df_Cleveland["Trestbps"]>170),5,df_Cleveland["Trestbps"])
 
-df_Cleveland.describe()
-
-
-# # CAMBIAR VALOR DE AÑOS
-
-# In[5]:
-
+#Cambiar valores para año
 
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=35)&(df_Cleveland["Age"]>1),1,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=40)&(df_Cleveland["Age"]>35),2,df_Cleveland["Age"])
@@ -101,16 +45,7 @@ df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=70)&(df_Cleveland["Age"]>65
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=75)&(df_Cleveland["Age"]>70),9,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=8000)&(df_Cleveland["Age"]>75),10,df_Cleveland["Age"])
 
-
-
-df_Cleveland.describe()
-
-
-# # CAMBIAR VALOR DE COLESTEROL.
-
-# In[6]:
-
-
+# CAMBIAR VALORES COLESTEROL
 # para valores entre 0 y 140, 1
 #para valores entre 140 y 180, 2
 #para valores entre 180 y 220, 3
@@ -134,106 +69,77 @@ df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=420)&(df_Cleveland["Chol"
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=460)&(df_Cleveland["Chol"]>420),9,df_Cleveland["Chol"])
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=8000)&(df_Cleveland["Chol"]>460),10,df_Cleveland["Chol"])
 
-df_Cleveland
-
-
-# In[7]:
-
-
-df_Cleveland.describe()
-
-
-# In[8]:
-
 
 df_usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Num"]]
-
-
-# In[9]:
-
-
-df_usar.describe()
-
-
-# # HACER RED BAYESIANA
-
-# In[10]:
-
 
 from pgmpy.sampling import BayesianModelSampling
 samples = df_usar
 print (samples.head())
 
-
-# In[11]:
-
-
 model = BayesianNetwork ([("Age", "Trestbps") , ("Age", "Chol"),("Sex", "Trestbps"),
                            ("Sex", "Chol"),("Age", "Fbs"),("Trestbps", "Num"),
                            ("Chol", "Num"),("Fbs","Num")])
-
-
-# In[12]:
-
 
 from pgmpy.estimators import MaximumLikelihoodEstimator
 emv = MaximumLikelihoodEstimator( model,data=samples)
 
 
-# In[13]:
-
 
 cpdem_Age = emv.estimate_cpd(node="Age")
-print (cpdem_Age)
+#print (cpdem_Age)
 cpdem_Sex = emv.estimate_cpd(node="Sex")
-print (cpdem_Sex)
+#print (cpdem_Sex)
 
 cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
-print (cpdem_Trestbps)
+#print (cpdem_Trestbps)
 cpdem_Chol = emv.estimate_cpd(node="Chol")
-print (cpdem_Chol)
+#print (cpdem_Chol)
 cpdem_Fbs = emv.estimate_cpd(node="Fbs")
-print (cpdem_Fbs)
+#print (cpdem_Fbs)
 cpdem_Num = emv.estimate_cpd(node="Num")
-print (cpdem_Num)
-
-
-# In[14]:
+#print (cpdem_Num)
 
 
 model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Trestbps ,cpdem_Chol,cpdem_Fbs,cpdem_Num )
-
-
-# In[16]:
-
-
-model.check_model()
-
-
-# In[17]:
-
 
 from pgmpy.inference import VariableElimination
 infer = VariableElimination (model)
 
 
-# In[18]:
 
 
-print ( model . get_independencies () )
 
 
-# In[21]:
+app = dash.Dash(__name__)
+
+app.layout = html.Div([
+    html.H1("Ingresar valores para la consulta"),
+    html.P("Si la edad está entre 1 y 30 ingrese: 1."),
+    html.P("Si la edad está entre 30 y 35 ingrese: 2."),
+    html.P("Si la edad está entre 40 y 45 ingrese: 3."),
+    html.P("Si la edad está entre 50 y 55 ingrese: 4."),
+    html.P("Si la edad está entre 55 y 60 ingrese: 5."),
+    html.P("Si la edad está entre 60 y 65 ingrese: 6."),
+    html.P("Si la edad está entre 65 y 70 ingrese: 7."),
+    html.P("Si la edad es mayor a 70 ingrese: 8"),
+    dcc.Input(id="age", type="number", placeholder="Age"),
+    dcc.Input(id="trestbps", type="number", placeholder="Trestbps"),
+    dcc.Input(id="chol", type="number", placeholder="Chol"),
+    dcc.Input(id="fbs", type="number", placeholder="Fbs"),
+    html.Button("Consultar", id="btn"),
+    html.Br(),
+    html.Div(id="output"),
+])
 
 
-# ME LLAMAN JUAN Y MARIA
-posterior_p1 = infer.query(["Num"] , evidence ={"Age": 4 , "Sex": 1,"Trestbps":2,"Chol":7,"Fbs":1},)
-print ( posterior_p1 )
+@app.callback(Output("output", "children"), Input("btn", "n_clicks"),
+              Input("age", "value"), Input("trestbps", "value"),
+              Input("chol", "value"), Input("fbs", "value"))
+def run_query(n_clicks, age, trestbps, chol, fbs):
+    if n_clicks is not None:
+        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs})
+        return f"El resultado de la consulta es: {posterior_p2}"  
 
 
-# In[32]:
-
-
-posterior_p2 = infer.query(["Num"] , evidence ={"Age":8,"Trestbps": 5 , "Chol": 5,"Fbs":1,},)
-print ( posterior_p2 )
-
+if __name__ == '__main__':
+    app.run_server(debug=False)
