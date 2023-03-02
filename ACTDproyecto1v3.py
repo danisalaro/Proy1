@@ -220,6 +220,7 @@ app.layout = html.Div([
     dcc.Input(id="trestbps", type="number", placeholder="Trestbps"),
     dcc.Input(id="chol", type="number", placeholder="Chol"),
     dcc.Input(id="fbs", type="number", placeholder="Fbs"),
+    dcc.Input(id="sex", type="number", placeholder="sex"),
     html.Button("Consultar", id="btn"),
     html.Br(),
     html.Div(id="output"),
@@ -228,12 +229,17 @@ app.layout = html.Div([
 
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
               Input("age", "value"), Input("trestbps", "value"),
-              Input("chol", "value"), Input("fbs", "value"))
-def run_query(n_clicks, age, trestbps, chol, fbs):
+              Input("chol", "value"), Input("fbs", "value"),
+              Input("sex","value"))
+def run_query(n_clicks, age, trestbps, chol, fbs,sex):
     if n_clicks is not None:
-        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs})
+        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs,"Sex": sex})
         return f"El resultado de la consulta es: {posterior_p2}"  
 
 
 if __name__ == '__main__':
     app.run_server(debug=False)
+    
+    
+    
+    
