@@ -220,7 +220,7 @@ infer = VariableElimination (model)
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Ingresar valores para la consulta"),
+    html.H1("Ingresar valores para la consulta", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center'}),
     html.P("Si la edad está entre 1 y 30 ingrese: 1."),
     html.P("Si la edad está entre 30 y 35 ingrese: 2."),
     html.P("Si la edad está entre 40 y 45 ingrese: 3."),
