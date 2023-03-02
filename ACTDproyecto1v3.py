@@ -2,7 +2,7 @@
 """
 Created on Tue Feb 28 19:39:49 2023
 
-@author: JUAN
+@author: JUAN y DAN
 """
 import dash
 from dash import dcc
@@ -16,17 +16,12 @@ from pgmpy.models import BayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
     
 
-
-
-
-
-df_Cleveland = pd.read_csv('C:\\Users\\juand\\OneDrive\\Documents\\Andes\\10. Semestre\\Analítica computacional\\Proyectos\\Proyecto 1\\Proy1\\cleveland.data',
+df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
-# para valores entre 0 y 110, 1
-#para valores entre 110 y 130, 2
-#para valores entre 130 y 150, 3
-#para valores entre 150 y 170, 4
-#para valores entre 170 y infiito, 5
+
+#############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
+
+#-------------------HISTOGRAMAS-------------------------#
 
 # Colesterol:    
 
@@ -44,18 +39,22 @@ hist.update_layout(
     },
     xaxis_title="Niveles de Colesterol",
     yaxis_title="Frecuencia",
-    font=dict(size=18, color='black')
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
 )
 hist.update_traces(marker_color='darkgreen')
 hist.show()
 
 # Edad:
 hist1 = px.histogram(df_Cleveland, x="Age", title="HISTOGRAMA DE EDAD",
-                labels={"Age": "Edad", "count": "Frecuencia",})
+                labels={"Age": "Edad", "count": "Frecuencia"})
 
 hist1.update_layout(
     title={
-        'text': "HISTOGRAMA DE EDAD",
+        'text': "Histograma de Edad",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -64,16 +63,23 @@ hist1.update_layout(
     },
     xaxis_title="Edad",
     yaxis_title="Frecuencia",
-    font=dict(size=18, color='black')
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
 )
-hist1.update_traces(marker_color='purple')
+
+hist1.update_traces(marker_color='#7F3C8D')
+
 hist1.show()
-#-------------------PORCENTAJES-------------------------#
+
+
 
 # Hombres y mujeres
 datos_pie = {'Sexo': ['Hombres', 'Mujeres'], 'Cantidad': [df_Cleveland['Sex'].value_counts()[1], df_Cleveland['Sex'].value_counts()[0]]}
 pie_chart1 = px.pie(datos_pie, values='Cantidad', names='Sexo', 
-             color_discrete_sequence=['#F7BFBE','#2D7BB6'],  # Cambiar los colores de las secciones de la torta
+             color_discrete_sequence=['#2D7BB6','#F7BFBE'],  # Cambiar los colores de las secciones de la torta
              hole=0.5,  # Agregar un agujero en el centro de la torta
              title='DISTRIBUCIÓN DE GÉNERO',  # Agregar un título al gráfico
              labels={'Cantidad': 'Cantidad de personas', 'Sexo': 'Género'},  # Cambiar los nombres de los ejes
@@ -92,7 +98,8 @@ pie_chart1.update_layout(
 )
 pie_chart1.show()
 
-# Azúcar en sangre tomada en ayunas
+# Azúcar en sangre tomada en ayunas:
+
 datos_pie1 = {'Azucar': ['Menor a 120mg/dl ', 'Mayor a 120mg/dl '], 'Cantidad': [df_Cleveland['Fbs'].value_counts()[0], df_Cleveland['Fbs'].value_counts()[1]]}
 pie_chart2 = px.pie(datos_pie1, values='Cantidad', names='Azucar', 
              color_discrete_sequence=['#2D7BB6','#FF0000'],  # Cambiar los colores de las secciones de la torta
@@ -116,8 +123,14 @@ pie_chart2.show()
 
 print(df_Cleveland)
 
+#############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
+# para valores entre 0 y 110, 1
+#para valores entre 110 y 130, 2
+#para valores entre 130 y 150, 3
+#para valores entre 150 y 170, 4
+#para valores entre 170 y infiito, 5
 
 
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=110)&(df_Cleveland["Trestbps"]>1),1,df_Cleveland["Trestbps"])
