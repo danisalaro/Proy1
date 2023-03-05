@@ -219,40 +219,64 @@ infer = VariableElimination (model)
 
 app = dash.Dash(__name__)
 
+# Datos para la tabla
+datoss = [
+    ['1-30', '1'],
+    ['31-39','2'],
+    ['40-49', '3'],
+    ['50-55', '4'],
+    ['56-59', '5'],
+    ['60-65', '6'],
+    ['65-70', '7'],
+    ['Mayor a 70', '8'],
+]
+
+# Crear la tabla
+tabla = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Rango de Edad',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
+
 app.layout = html.Div([
+    html.Img(src='heart.jpeg'),
     html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin':'15px'}),
-    html.H2("Ingresar valores para la consulta", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
-    dcc.Input(id="age", type="number", placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
-    dcc.Input(id="trestbps", type="number", placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="chol", type="number", placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="fbs", type="number", placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="sex", type="number", placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
+    dcc.Input(id="age", type="number", min=1, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
+    dcc.Input(id="trestbps", type="number",min=0, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="chol", type="number",min=0, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="fbs", type="number",min=0, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="sex", type="number",min=0, placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     html.Button(
         "Consultar",
         id="btn",
         style={
         'background-color': '#a4a5a4',
         'border': 'none',
-        'border-radius': '40px',
         'color': '#fff',
         'cursor': 'pointer',
         'font-size': '1.2em',
         'margin': '10px 0',
-        'padding': '10px 20px',
+        'padding': '6px 8px',
         'transition': 'background-color 0.3s ease',
-        'position': 'absolute'
+        'position': 'absolute',
+        'margin-left': '2px',
+        'margin-top': '30px',
     }
 ),
-
-    html.Br(),
-    html.P("Si la edad está entre 1 y 30 ingrese: 1.", style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 30 y 35 ingrese: 2." , style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 40 y 45 ingrese: 3.", style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 50 y 55 ingrese: 4." , style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 55 y 60 ingrese: 5." , style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 60 y 65 ingrese: 6." , style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad está entre 65 y 70 ingrese: 7.", style={'font-family': 'Poppins, sans-serif'}),
-    html.P("Si la edad es mayor a 70 ingrese: 8", style={'font-family': 'Poppins, sans-serif'}),
+    html.H3("Convenciones para la herramienta:",style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),
+    tabla,
     html.Div(id="output"),
 ])
 
