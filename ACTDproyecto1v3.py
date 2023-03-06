@@ -250,7 +250,7 @@ tabla = html.Table([
 
 
 app.layout = html.Div([
-    html.Img(src='heart.jpeg'),
+    html.Img(src='img/heart.png', height='40px', width='50px'),
     html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin':'15px'}),
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
     dcc.Input(id="age", type="number", min=1, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
