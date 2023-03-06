@@ -4,6 +4,10 @@ Created on Tue Feb 28 19:39:49 2023
 
 @author: JUAN y DAN
 """
+"""
+Created on Tue Feb 28 19:39:49 2023
+@author: JUAN y DAN
+"""
 import dash
 from dash import dcc
 from dash import html
@@ -19,9 +23,34 @@ from pgmpy.factors.discrete import TabularCPD
 df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
 
+print(df_Cleveland)
 #############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
 
 #-------------------HISTOGRAMAS-------------------------#
+
+# Thalach:
+hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
+                labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
+
+hist0.update_layout(
+    title={
+        'text': "HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Nivel Registrado",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+hist0.update_traces(marker_color='navy')
+hist0.show()
 
 # Colesterol:    
 
@@ -74,8 +103,34 @@ hist1.update_traces(marker_color='#7F3C8D')
 
 hist1.show()
 
+# Oldpeak:
+hist2 = px.histogram(df_Cleveland, x="Oldpeak", title="HISTOGRAMA DE ST DEPRESSION",
+                labels={"Oldpeak": "St Depression", "count": "Frecuencia"})
+
+hist2.update_layout(
+    title={
+        'text': "Histograma de ST Depression",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="ST Depression",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+
+hist2.update_traces(marker_color='#FF966F')
+
+hist2.show()
 
 
+#-------------------PIE CHARTS-------------------------#
 # Hombres y mujeres
 datos_pie = {'Sexo': ['Hombres', 'Mujeres'], 'Cantidad': [df_Cleveland['Sex'].value_counts()[1], df_Cleveland['Sex'].value_counts()[0]]}
 pie_chart1 = px.pie(datos_pie, values='Cantidad', names='Sexo', 
@@ -122,6 +177,25 @@ pie_chart2.update_layout(
 pie_chart2.show()
 
 print(df_Cleveland)
+
+#-------------------SCATTER Y RELACIÓN ENTRE VARIABLES-------------------------#
+
+# Age con Chol
+
+sc0=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"})
+sc0.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE COLESTEROL Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=15, color='black')
+    }
+)
+sc0.show()
+
+
 
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
@@ -219,23 +293,64 @@ infer = VariableElimination (model)
 
 app = dash.Dash(__name__)
 
+# Datos para la tabla
+datoss = [
+    ['1-30', '1'],
+    ['31-39','2'],
+    ['40-49', '3'],
+    ['50-55', '4'],
+    ['56-59', '5'],
+    ['60-65', '6'],
+    ['65-70', '7'],
+    ['Mayor a 70', '8'],
+]
+
+# Crear la tabla
+tabla = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Rango de Edad',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
+
 app.layout = html.Div([
-    html.H1("Ingresar valores para la consulta", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center'}),
-    html.P("Si la edad está entre 1 y 30 ingrese: 1."),
-    html.P("Si la edad está entre 30 y 35 ingrese: 2."),
-    html.P("Si la edad está entre 40 y 45 ingrese: 3."),
-    html.P("Si la edad está entre 50 y 55 ingrese: 4."),
-    html.P("Si la edad está entre 55 y 60 ingrese: 5."),
-    html.P("Si la edad está entre 60 y 65 ingrese: 6."),
-    html.P("Si la edad está entre 65 y 70 ingrese: 7."),
-    html.P("Si la edad es mayor a 70 ingrese: 8"),
-    dcc.Input(id="age", type="number", placeholder="Age"),
-    dcc.Input(id="trestbps", type="number", placeholder="Trestbps"),
-    dcc.Input(id="chol", type="number", placeholder="Chol"),
-    dcc.Input(id="fbs", type="number", placeholder="Fbs"),
-    dcc.Input(id="sex", type="number", placeholder="sex"),
-    html.Button("Consultar", id="btn"),
-    html.Br(),
+    html.Img(src='img/heart.png', height='40px', width='50px'),
+    html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin':'15px'}),
+    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
+    dcc.Input(id="age", type="number", min=1, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
+    dcc.Input(id="trestbps", type="number",min=0, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="chol", type="number",min=0, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="fbs", type="number",min=0, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="sex", type="number",min=0, placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    html.Button(
+        "Consultar",
+        id="btn",
+        style={
+        'background-color': '#a4a5a4',
+        'border': 'none',
+        'color': '#fff',
+        'cursor': 'pointer',
+        'font-size': '1.2em',
+        'margin': '10px 0',
+        'padding': '6px 8px',
+        'transition': 'background-color 0.3s ease',
+        'position': 'absolute',
+        'margin-left': '2px',
+        'margin-top': '30px',
+    }
+),
+    html.H3("Convenciones para la herramienta:",style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),
+    tabla,
     html.Div(id="output"),
 ])
 
@@ -252,7 +367,4 @@ def run_query(n_clicks, age, trestbps, chol, fbs,sex):
 
 if __name__ == '__main__':
     app.run_server(debug=False)
-    
-    
-    
     
