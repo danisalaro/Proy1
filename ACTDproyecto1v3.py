@@ -19,9 +19,34 @@ from pgmpy.factors.discrete import TabularCPD
 df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
 
+print(df_Cleveland)
 #############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
 
 #-------------------HISTOGRAMAS-------------------------#
+
+# Thalach:
+hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
+                labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
+
+hist0.update_layout(
+    title={
+        'text': "HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Nivel Registrado",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+hist0.update_traces(marker_color='navy')
+hist0.show()
 
 # Colesterol:    
 
@@ -74,8 +99,34 @@ hist1.update_traces(marker_color='#7F3C8D')
 
 hist1.show()
 
+# Oldpeak:
+hist2 = px.histogram(df_Cleveland, x="Oldpeak", title="HISTOGRAMA DE ST DEPRESSION",
+                labels={"Oldpeak": "St Depression", "count": "Frecuencia"})
+
+hist2.update_layout(
+    title={
+        'text': "Histograma de ST Depression",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="ST Depression",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+
+hist2.update_traces(marker_color='#FF966F')
+
+hist2.show()
 
 
+#-------------------PIE CHARTS-------------------------#
 # Hombres y mujeres
 datos_pie = {'Sexo': ['Hombres', 'Mujeres'], 'Cantidad': [df_Cleveland['Sex'].value_counts()[1], df_Cleveland['Sex'].value_counts()[0]]}
 pie_chart1 = px.pie(datos_pie, values='Cantidad', names='Sexo', 
@@ -122,6 +173,25 @@ pie_chart2.update_layout(
 pie_chart2.show()
 
 print(df_Cleveland)
+
+#-------------------SCATTER Y RELACIÓN ENTRE VARIABLES-------------------------#
+
+# Age con Chol
+
+sc0=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"})
+sc0.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE COLESTEROL Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=15, color='black')
+    }
+)
+sc0.show()
+
+
 
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
