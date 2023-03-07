@@ -348,7 +348,7 @@ tabla = html.Table([
             'border':'1px solid #003085'})
 
 # Ruta de la imagen:
-cora = '/img/heart.png'
+cora = 'https://www.shutterstock.com/image-vector/valentines-day-heart-vector-illustration-260nw-556690450.jpg'
 
 app.layout = html.Div([
     html.Img(src= cora, height='40px', width='50px'),
