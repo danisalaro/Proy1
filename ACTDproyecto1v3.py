@@ -2,12 +2,9 @@
 """
 Created on Tue Feb 28 19:39:49 2023
 
-@author: JUAN y DAN
+@author: JUAN DIEGO PRADA y DANIEL FELIPE SALAZAR
 """
-"""
-Created on Tue Feb 28 19:39:49 2023
-@author: JUAN y DAN
-"""
+
 import dash
 from dash import dcc
 from dash import html
@@ -182,7 +179,7 @@ print(df_Cleveland)
 
 # Age con Chol
 
-sc0=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"})
+sc0=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"},color="Sex", facet_col="Sex")
 sc0.update_layout(
     title={
         'text': "RELACIÓN ENTRE COLESTEROL Y EDAD",
@@ -190,11 +187,39 @@ sc0.update_layout(
         'x':0.5,
         'xanchor': 'center',
         'yanchor': 'top',
-        'font': dict(size=15, color='black')
+        'font': dict(size=17, color='black')
     }
 )
 sc0.show()
+# Age con Oldpeak:
 
+sc1=px.scatter(df_Cleveland, y='Oldpeak', x= 'Age', title = 'RELACIÓN ENTRE ST DEPRESSION Y EDAD',labels={"Oldpeak": "ST Depression", "Age": "Edad"},color="Sex", facet_col="Sex")
+sc1.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE ST DEPRESSION Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc1.show()
+
+# Age con Thalach:
+
+sc2=px.scatter(df_Cleveland, y='Thalach', x= 'Age', title = 'RELACIÓN ENTRE MÁXIMO RATE REGISTRADO Y EDAD',labels={"Thalach": "Máximo rate registrado", "Age": "Edad"},color="Sex", facet_col="Sex")
+sc2.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE MÁXIMO RATE REGISTRADO Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc2.show()
 
 
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
@@ -322,9 +347,11 @@ tabla = html.Table([
 			'margin-top': '20px',
             'border':'1px solid #003085'})
 
+# Ruta de la imagen:
+cora = '/img/heart.png'
 
 app.layout = html.Div([
-    html.Img(src='img/heart.png', height='40px', width='50px'),
+    html.Img(src= cora, height='40px', width='50px'),
     html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin':'15px'}),
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
     dcc.Input(id="age", type="number", min=1, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
