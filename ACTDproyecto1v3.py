@@ -399,15 +399,42 @@ df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=460)&(df_Cleveland["Chol"
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=8000)&(df_Cleveland["Chol"]>460),10,df_Cleveland["Chol"])
 
 
-df_usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Num"]]
+
+
+# para valores entre 0 y 110, 1
+#para valores entre 110 y 130, 2
+#para valores entre 130 y 150, 3
+#para valores entre 150 y 170, 4
+#para valores entre 170 y infiito, 5
+
+
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=100)&(df_Cleveland["Thalach"]>1),1,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=110)&(df_Cleveland["Thalach"]>100),2,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=120)&(df_Cleveland["Thalach"]>110),3,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=130)&(df_Cleveland["Thalach"]>120),4,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=140)&(df_Cleveland["Thalach"]>130),5,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=150)&(df_Cleveland["Thalach"]>140),6,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=160)&(df_Cleveland["Thalach"]>150),7,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=170)&(df_Cleveland["Thalach"]>160),8,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=180)&(df_Cleveland["Thalach"]>170),9,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=190)&(df_Cleveland["Thalach"]>180),10,df_Cleveland["Thalach"])
+df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=2000)&(df_Cleveland["Thalach"]>190),11,df_Cleveland["Thalach"])
+
+
+
+df_usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Thalach","Num","CP",
+                        "Exang"]]
 
 from pgmpy.sampling import BayesianModelSampling
 samples = df_usar
 print (samples.head())
 
-model = BayesianNetwork ([("Age", "Trestbps") , ("Age", "Chol"),("Sex", "Trestbps"),
-                           ("Sex", "Chol"),("Age", "Fbs"),("Trestbps", "Num"),
-                           ("Chol", "Num"),("Fbs","Num")])
+
+model = BayesianNetwork ([("Age", "Chol") , ("Age", "Fbs"),("Age", "Restecg"),
+                           ("Age", "Thalach"),("Sex", "Chol"),("Sex", "Fbs"),
+                           ("Sex", "Restecg"),("Sex","Thalach"),("Chol","Num"),
+                           ("Fbs","Num"),("Restecg","Num"),("Thalach","Num"),
+                           ("Num","CP"),("Num","Exang"),("Num","Trestbps")])
 
 from pgmpy.estimators import MaximumLikelihoodEstimator
 emv = MaximumLikelihoodEstimator( model,data=samples)
@@ -418,18 +445,26 @@ cpdem_Age = emv.estimate_cpd(node="Age")
 #print (cpdem_Age)
 cpdem_Sex = emv.estimate_cpd(node="Sex")
 #print (cpdem_Sex)
-
-cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
-#print (cpdem_Trestbps)
 cpdem_Chol = emv.estimate_cpd(node="Chol")
 #print (cpdem_Chol)
 cpdem_Fbs = emv.estimate_cpd(node="Fbs")
 #print (cpdem_Fbs)
+cpdem_Restecg = emv.estimate_cpd(node="Restecg")
+#print (cpdem_Restecg)
+cpdem_Thalach = emv.estimate_cpd(node="Thalach")
+#print (cpdem_Thalach)
 cpdem_Num = emv.estimate_cpd(node="Num")
 #print (cpdem_Num)
+cpdem_CP = emv.estimate_cpd(node="CP")
+#print (cpdem_CP)
+cpdem_Exang = emv.estimate_cpd(node="Exang")
+#print (cpdem_Exang)
+cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
+#print (cpdem_Trestbps)
 
 
-model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Trestbps ,cpdem_Chol,cpdem_Fbs,cpdem_Num )
+model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Chol ,cpdem_Fbs,cpdem_Restecg,
+               cpdem_Thalach,cpdem_Num,cpdem_CP,cpdem_Exang,cpdem_Trestbps )
 
 from pgmpy.inference import VariableElimination
 infer = VariableElimination (model)
@@ -578,10 +613,22 @@ app.layout = html.Div([
     html.Div([
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
     dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
-    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="restecg", type="number", min=0, max=2, placeholder="Restecg", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
+    dcc.Input(id="thalach", type="number",min=1, max=11, placeholder="Thalach", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="exang", type="number",min=0, max=1, placeholder="Exang", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),   
+    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+   
+    
+    
+    
+    
+       
+    
+    
     html.Button(
         "Consultar",
         id="btn",
@@ -613,12 +660,15 @@ app.layout = html.Div([
 
 
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
-              Input("age", "value"), Input("trestbps", "value"),
+              Input("age", "value"), Input("sex", "value"),
               Input("chol", "value"), Input("fbs", "value"),
-              Input("sex","value"))
+              Input("restecg", "value"), Input("thalach", "value"),
+              Input("cp","value"),Input("exang", "value"),
+              Input("trestbps", "value"))
 def run_query(n_clicks, age, trestbps, chol, fbs, sex):
     if n_clicks is not None:
-        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs, "Sex": sex})
+        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Sex": sex, "Chol": chol, "Restecg": restecg, "Thalach": thalach,"CP": cp,
+                                                      "Exang": exang,"Trestbps": trestbps,"Fbs": fbs},)
         suma = posterior_p2.values[1]+posterior_p2.values[2]+posterior_p2.values[3]+posterior_p2.values[4]
         return f"La probabilidad del paciente de tener la enfermedad es de: {round(suma*100,2)}%"
 
