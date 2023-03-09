@@ -25,6 +25,7 @@ print(df_Cleveland)
 
 #-------------------HISTOGRAMAS-------------------------#
 
+"""" 
 # Thalach:
 hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
                 labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
@@ -125,6 +126,55 @@ hist2.update_layout(
 hist2.update_traces(marker_color='#FF966F')
 
 hist2.show()
+# Ca:    
+hist3 = px.histogram(df_Cleveland, x="Ca", title="HISTOGRAMA DE VASOS COLOREADOS",
+                labels={"Ca": "Número de vasos sanguineos coloreados", "count": "Frecuencia"})
+
+hist3.update_layout(
+    title={
+        'text': "HISTOGRAMA DE VASOS COLOREADOS",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Vasos coloreados",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+
+hist3.update_traces(marker_color='#8B98B2')
+
+hist3.show()
+
+# Trestbps:    
+hist4 = px.histogram(df_Cleveland, x="Trestbps", title="HISTOGRAMA DE PRESIÓN SANGUINEA EN REPOSO",
+                labels={"Trestbps": "Presión sanguinea en reposo", "count": "Frecuencia"})
+
+hist4.update_layout(
+    title={
+        'text': "HISTOGRAMA DE PRESIÓN SANGUINEA EN REPOSO",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=28, color='black')
+    },
+    xaxis_title="Presión sanguinea",
+    yaxis_title="Frecuencia",
+    font=dict(size=18, color='black'),
+    plot_bgcolor='white',
+    bargap=0.1,
+    margin=dict(l=50, r=50, t=100, b=50),
+    showlegend=False
+)
+
+hist4.update_traces(marker_color='#599B86')
 
 
 #-------------------PIE CHARTS-------------------------#
@@ -177,7 +227,7 @@ print(df_Cleveland)
 
 #-------------------SCATTER Y RELACIÓN ENTRE VARIABLES-------------------------#
 
-# Age con Chol
+# Age con Chol (sexo)
 
 sc0=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"},color="Sex", facet_col="Sex")
 sc0.update_layout(
@@ -191,7 +241,7 @@ sc0.update_layout(
     }
 )
 sc0.show()
-# Age con Oldpeak:
+# Age con Oldpeak (sexo):
 
 sc1=px.scatter(df_Cleveland, y='Oldpeak', x= 'Age', title = 'RELACIÓN ENTRE ST DEPRESSION Y EDAD',labels={"Oldpeak": "ST Depression", "Age": "Edad"},color="Sex", facet_col="Sex")
 sc1.update_layout(
@@ -206,7 +256,7 @@ sc1.update_layout(
 )
 sc1.show()
 
-# Age con Thalach:
+# Age con Thalach (enfermedad):
 
 sc2=px.scatter(df_Cleveland, y='Thalach', x= 'Age', title = 'RELACIÓN ENTRE MÁXIMO RATE REGISTRADO Y EDAD',labels={"Thalach": "Máximo rate registrado", "Age": "Edad"},color="Sex", facet_col="Sex")
 sc2.update_layout(
@@ -221,7 +271,80 @@ sc2.update_layout(
 )
 sc2.show()
 
+# Colesterol con Thalach (enfermedad)
+sc3=px.scatter(df_Cleveland, y='Chol', x= 'Thalach', title = 'RELACIÓN ENTRE MÁXIMO RATE REGISTRADO Y COLESTEROL',labels={"Chol": "Colesterol", "Thalach": "Máximo rate registrado"},color="Num", facet_col="Num")
+sc3.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE MÁXIMO RATE REGISTRADO Y COLESTEROL",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc3.show()
 
+# Age con Chol (enfermedad)
+
+sc4=px.scatter(df_Cleveland, y='Chol', x= 'Age', title = 'RELACIÓN ENTRE COLESTEROL Y EDAD',labels={"Chol": "Colesterol registrado", "Age": "Edad"},color="Num", facet_col="Num")
+sc4.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE COLESTEROL Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc4.show()
+
+# Age con Oldpeak (enfermedad):
+
+sc5=px.scatter(df_Cleveland, y='Oldpeak', x= 'Age', title = 'RELACIÓN ENTRE ST DEPRESSION Y EDAD',labels={"Oldpeak": "ST Depression", "Age": "Edad"},color="Num", facet_col="Num")
+sc5.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE ST DEPRESSION Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc5.show()
+
+# Age con Trestbps (sexo)
+sc6=px.scatter(df_Cleveland, y='Trestbps', x= 'Age', title = 'RELACIÓN ENTRE PRESIÓN EN SANGRE Y EDAD',labels={"Trestbps": "Presión en sangre", "Age": "Edad"},color="Sex", facet_col="Sex")
+sc6.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE PRESIÓN EN SANGRE Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc6.show()
+
+# Age con Trestbps (enfermedad)
+sc7=px.scatter(df_Cleveland, y='Trestbps', x= 'Age', title = 'RELACIÓN ENTRE PRESIÓN EN SANGRE Y EDAD',labels={"Trestbps": "Presión en sangre", "Age": "Edad"},color="Num", facet_col="Num")
+sc7.update_layout(
+    title={
+        'text': "RELACIÓN ENTRE PRESIÓN EN SANGRE Y EDAD",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top',
+        'font': dict(size=17, color='black')
+    }
+)
+sc7.show()
+
+
+"""
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
@@ -312,13 +435,9 @@ from pgmpy.inference import VariableElimination
 infer = VariableElimination (model)
 
 
-
-
-
-
 app = dash.Dash(__name__)
 
-# Datos para la tabla
+# Datos para la tabla edad
 datoss = [
     ['1-30', '1'],
     ['31-39','2'],
@@ -330,7 +449,7 @@ datoss = [
     ['Mayor a 70', '8'],
 ]
 
-# Crear la tabla
+# Crear la tabla edad
 tabla = html.Table([
     # Encabezados de las columnas
     html.Tr([html.Th('Rango de Edad',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
@@ -347,14 +466,118 @@ tabla = html.Table([
 			'margin-top': '20px',
             'border':'1px solid #003085'})
 
+# Datos para tabla Trestbps
+datoss1 = [
+    ['0-110', '1'],
+    ['110-130','2'],
+    ['130-150', '3'],
+    ['150-170', '4'],
+    ['Mayor a 170', '5']
+
+]
+# Crear la tabla Trestbps
+tabla1 = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Rango de Trestbps',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss1]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
+# Datos colesterol
+datoss2 = [
+    ['0-140', '1'],
+    ['140-180','2'],
+    ['180-220', '3'],
+    ['220-260', '4'],
+    ['260-300', '5'],
+    ['300-340', '6'],
+    ['340-380', '7'],
+    ['380-420', '8'],
+    ['420-460', '9'],
+    ['Mayor a 460', '10']
+]
+# Crear la tabla Colesterol
+tabla2 = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Rango de Chol',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss2]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
+# Datos fbs
+datoss3 = [
+    ['Mayor a 120 mg/dl', '1'],
+    ['Menor o igual a 120 mg/dl','0']
+]
+# Crear la tabla fbs
+tabla3 = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Muestra de Azúcar',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss3]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
+# Datos sex
+datoss4 = [
+    ['Hombre', '1'],
+    ['Mujer','0']
+]
+# Crear la tabla sex
+tabla4 = html.Table([
+    # Encabezados de las columnas
+    html.Tr([html.Th('Sexo del paciente',style ={'text-align': 'center'}), html.Th('Número a Digitar',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+			'color': '#ffffff',
+			'text-align': 'left',
+			'font-weight': 'bold'}),
+    # Datos de las filas
+    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss4]
+], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+			'margin': '30px',
+			'font-size': '1.2em',
+			'min-width': '400px',
+			'overflow': 'hidden',
+			'margin-top': '20px',
+            'border':'1px solid #003085'})
+
 # Ruta de la imagen:
-cora = 'https://www.shutterstock.com/image-vector/valentines-day-heart-vector-illustration-260nw-556690450.jpg'
+cora = 'https://images.emojiterra.com/google/android-11/512px/1fac0.png'
+uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
 
 app.layout = html.Div([
-    html.Img(src= cora, height='40px', width='50px'),
-    html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin':'15px'}),
-    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center', 'color':'#FF4720'}),
-    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'30px', 'margin-left': '120px'}),
+    html.Div([ html.Div([html.Img(src=cora, height='120px', width='120px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-right': '20px'}),
+    html.Div([html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin-left':'15px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
+    html.Div([html.Img(src=uniandes, height='150px', width='240px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '20px'}),
+    ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
+    html.Div([
+    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
+    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
     dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
@@ -363,33 +586,40 @@ app.layout = html.Div([
         "Consultar",
         id="btn",
         style={
-        'background-color': '#a4a5a4',
-        'border': 'none',
-        'color': '#fff',
-        'cursor': 'pointer',
-        'font-size': '1.2em',
-        'margin': '10px 0',
-        'padding': '6px 8px',
-        'transition': 'background-color 0.3s ease',
-        'position': 'absolute',
-        'margin-left': '2px',
-        'margin-top': '30px',
-    }
-),
-    html.H3("Convenciones para la herramienta:",style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),
-    tabla,
-    html.Div(id="output"),
-])
+            'background-color': '#a4a5a4',
+            'border': 'none',
+            'color': '#fff',
+            'cursor': 'pointer',
+            'font-size': '1.2em',
+            'margin': '10px 0',
+            'padding': '6px 8px',
+            'transition': 'background-color 0.3s ease',
+            'position': 'absolute',
+            'left': '2px',
+            'top': '30px',
+            'margin-left' : '1245px',
+            'margin-top' : '220px'
+        }
+    ),
+    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    html.Div([tabla]),
+    html.Div([tabla1],style={'margin-left':'450px','margin-top':'-249px'}),
+    html.Div([tabla2],style={'margin-left':'900px','margin-top':'-178px'}),
+    html.Div([tabla3],style={'margin-top':'-40px'}),
+    html.Div([tabla4],style={'margin-left':'450px','margin-top':'-180px'}),
+    html.H1(id="output",style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#11D266','margin':'15px', 'margin-top':'100px'})
+], style={'text-align': 'right'}),
+])])
 
 
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
               Input("age", "value"), Input("trestbps", "value"),
               Input("chol", "value"), Input("fbs", "value"),
               Input("sex","value"))
-def run_query(n_clicks, age, trestbps, chol, fbs,sex):
+def run_query(n_clicks, age, trestbps, chol, fbs, sex):
     if n_clicks is not None:
-        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs,"Sex": sex})
-        return f"El resultado de la consulta es: {posterior_p2}"  
+        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs, "Sex": sex})
+        suma = posterior_p2.values[1]+posterior_p2.values[2]+posterior_p2.values[3]+posterior_p2.values[4]
+        return f"La probabilidad del paciente de tener la enfermedad es de: {round(suma*100,2)}%"
 
 
 if __name__ == '__main__':
