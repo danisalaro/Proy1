@@ -25,7 +25,7 @@ print(df_Cleveland)
 
 #-------------------HISTOGRAMAS-------------------------#
 
-"""" 
+
 # Thalach:
 hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
                 labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
@@ -344,7 +344,7 @@ sc7.update_layout(
 sc7.show()
 
 
-"""
+
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
