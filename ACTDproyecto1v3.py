@@ -24,7 +24,7 @@ print(df_Cleveland)
 #############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
 
 #-------------------HISTOGRAMAS-------------------------#
-
+"""""
 
 # Thalach:
 hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
@@ -343,8 +343,7 @@ sc7.update_layout(
 )
 sc7.show()
 
-
-
+"""
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
@@ -612,23 +611,15 @@ app.layout = html.Div([
     ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
     html.Div([
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
-    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
-    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="restecg", type="number", min=0, max=2, placeholder="Restecg", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
-    dcc.Input(id="thalach", type="number",min=1, max=11, placeholder="Thalach", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="exang", type="number",min=0, max=1, placeholder="Exang", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),   
-    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-   
-    
-    
-    
-    
-       
-    
-    
+    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '140px'}),
+    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="restecg", type="number", min=0, max=2, placeholder="Restecg", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px'}),
+    dcc.Input(id="thalach", type="number",min=1, max=11, placeholder="Thalach", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
+    html.Div([dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em', 'margin-left':'428px'}),
+    dcc.Input(id="exang", type="number",min=0, max=1, placeholder="Exang", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),   
+    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'})]),
     html.Button(
         "Consultar",
         id="btn",
@@ -644,7 +635,7 @@ app.layout = html.Div([
             'position': 'absolute',
             'left': '2px',
             'top': '30px',
-            'margin-left' : '1245px',
+            'margin-left' : '1345px',
             'margin-top' : '220px'
         }
     ),
@@ -665,7 +656,7 @@ app.layout = html.Div([
               Input("restecg", "value"), Input("thalach", "value"),
               Input("cp","value"),Input("exang", "value"),
               Input("trestbps", "value"))
-def run_query(n_clicks, age, trestbps, chol, fbs, sex):
+def run_query(n_clicks, age, trestbps, chol, fbs, sex,restecg,thalach,cp,exang):
     if n_clicks is not None:
         posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Sex": sex, "Chol": chol, "Restecg": restecg, "Thalach": thalach,"CP": cp,
                                                       "Exang": exang,"Trestbps": trestbps,"Fbs": fbs},)
