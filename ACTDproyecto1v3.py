@@ -601,7 +601,8 @@ app.layout = html.Div([
             'margin-top' : '220px'
         }
     ),
-    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    html.Div([tabla]),
+    html.Div([html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    
+    html.Div([tabla]),
     html.Div([tabla1],style={'margin-left':'450px','margin-top':'-249px'}),
     html.Div([tabla2],style={'margin-left':'900px','margin-top':'-178px'}),
     html.Div([tabla3],style={'margin-top':'-40px'}),
