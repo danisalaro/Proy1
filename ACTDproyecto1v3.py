@@ -24,9 +24,10 @@ print(df_Cleveland)
 #############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
 
 #-------------------HISTOGRAMAS-------------------------#
-"""""
+
 
 # Thalach:
+"""
 hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
                 labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
 
@@ -342,8 +343,8 @@ sc7.update_layout(
     }
 )
 sc7.show()
-
 """
+
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
@@ -352,16 +353,12 @@ sc7.show()
 #para valores entre 130 y 150, 3
 #para valores entre 150 y 170, 4
 #para valores entre 170 y infiito, 5
-
-
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=110)&(df_Cleveland["Trestbps"]>1),1,df_Cleveland["Trestbps"])
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=130)&(df_Cleveland["Trestbps"]>110),2,df_Cleveland["Trestbps"])
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=150)&(df_Cleveland["Trestbps"]>130),3,df_Cleveland["Trestbps"])
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=170)&(df_Cleveland["Trestbps"]>150),4,df_Cleveland["Trestbps"])
 df_Cleveland["Trestbps"] = np.where((df_Cleveland["Trestbps"]<=10000)&(df_Cleveland["Trestbps"]>170),5,df_Cleveland["Trestbps"])
-
 #Cambiar valores para año
-
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=35)&(df_Cleveland["Age"]>1),1,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=40)&(df_Cleveland["Age"]>35),2,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=45)&(df_Cleveland["Age"]>40),3,df_Cleveland["Age"])
@@ -372,7 +369,6 @@ df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=65)&(df_Cleveland["Age"]>60
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=70)&(df_Cleveland["Age"]>65),8,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=75)&(df_Cleveland["Age"]>70),9,df_Cleveland["Age"])
 df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=8000)&(df_Cleveland["Age"]>75),10,df_Cleveland["Age"])
-
 # CAMBIAR VALORES COLESTEROL
 # para valores entre 0 y 140, 1
 #para valores entre 140 y 180, 2
@@ -384,8 +380,6 @@ df_Cleveland["Age"] = np.where((df_Cleveland["Age"]<=8000)&(df_Cleveland["Age"]>
 #para valores entre 380 y 420, 8
 #para valores entre 420 y 460, 9
 #para valores entre 500 y infinito, 10
-
-
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=140)&(df_Cleveland["Chol"]>1),1,df_Cleveland["Chol"])
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=180)&(df_Cleveland["Chol"]>140),2,df_Cleveland["Chol"])
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=220)&(df_Cleveland["Chol"]>180),3,df_Cleveland["Chol"])
@@ -396,15 +390,6 @@ df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=380)&(df_Cleveland["Chol"
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=420)&(df_Cleveland["Chol"]>380),8,df_Cleveland["Chol"])
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=460)&(df_Cleveland["Chol"]>420),9,df_Cleveland["Chol"])
 df_Cleveland["Chol"] = np.where((df_Cleveland["Chol"]<=8000)&(df_Cleveland["Chol"]>460),10,df_Cleveland["Chol"])
-
-
-
-
-# para valores entre 0 y 110, 1
-#para valores entre 110 y 130, 2
-#para valores entre 130 y 150, 3
-#para valores entre 150 y 170, 4
-#para valores entre 170 y infiito, 5
 
 
 df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=100)&(df_Cleveland["Thalach"]>1),1,df_Cleveland["Thalach"])
@@ -421,56 +406,55 @@ df_Cleveland["Thalach"] = np.where((df_Cleveland["Thalach"]<=2000)&(df_Cleveland
 
 
 
-df_usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Thalach","Num","CP",
-                        "Exang"]]
 
+
+
+
+df_usar = df_Cleveland[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Num","Thalach","CP","Exang"]]
 from pgmpy.sampling import BayesianModelSampling
 samples = df_usar
 print (samples.head())
 
 
-model = BayesianNetwork ([("Age", "Chol") , ("Age", "Fbs"),("Age", "Restecg"),
-                           ("Age", "Thalach"),("Sex", "Chol"),("Sex", "Fbs"),
-                           ("Sex", "Restecg"),("Sex","Thalach"),("Chol","Num"),
-                           ("Fbs","Num"),("Restecg","Num"),("Thalach","Num"),
-                           ("Num","CP"),("Num","Exang"),("Num","Trestbps")])
+
+model = BayesianNetwork ([("Age", "Chol") , ("Age", "Fbs"),("Age", "Restecg"),("Age", "Thalach"),
+                           ("Sex", "Chol"),("Sex", "Fbs"), ("Sex", "Restecg"),("Sex", "Thalach"),
+                           ("Chol","Num"),
+                           ("Fbs","Num"),
+                           ("Restecg","Num"),
+                           ("Thalach", "Num"),
+                           ("Num","Trestbps"), ("Num","CP"),("Num","Exang")])
+
+
 
 from pgmpy.estimators import MaximumLikelihoodEstimator
 emv = MaximumLikelihoodEstimator( model,data=samples)
-
-
-
 cpdem_Age = emv.estimate_cpd(node="Age")
 #print (cpdem_Age)
 cpdem_Sex = emv.estimate_cpd(node="Sex")
 #print (cpdem_Sex)
+cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
+#print (cpdem_Trestbps)
 cpdem_Chol = emv.estimate_cpd(node="Chol")
 #print (cpdem_Chol)
 cpdem_Fbs = emv.estimate_cpd(node="Fbs")
 #print (cpdem_Fbs)
+cpdem_Num = emv.estimate_cpd(node="Num")
+#print (cpdem_Num)
 cpdem_Restecg = emv.estimate_cpd(node="Restecg")
 #print (cpdem_Restecg)
 cpdem_Thalach = emv.estimate_cpd(node="Thalach")
 #print (cpdem_Thalach)
-cpdem_Num = emv.estimate_cpd(node="Num")
-#print (cpdem_Num)
 cpdem_CP = emv.estimate_cpd(node="CP")
 #print (cpdem_CP)
 cpdem_Exang = emv.estimate_cpd(node="Exang")
 #print (cpdem_Exang)
-cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
-#print (cpdem_Trestbps)
 
 
-model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Chol ,cpdem_Fbs,cpdem_Restecg,
-               cpdem_Thalach,cpdem_Num,cpdem_CP,cpdem_Exang,cpdem_Trestbps )
-
+model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Trestbps ,cpdem_Chol,cpdem_Fbs,cpdem_Num,cpdem_Restecg,cpdem_Thalach,cpdem_CP,cpdem_Exang )
 from pgmpy.inference import VariableElimination
 infer = VariableElimination (model)
-
-
 app = dash.Dash(__name__)
-
 # Datos para la tabla edad
 datoss = [
     ['1-30', '1'],
@@ -482,7 +466,6 @@ datoss = [
     ['65-70', '7'],
     ['Mayor a 70', '8'],
 ]
-
 # Crear la tabla edad
 tabla = html.Table([
     # Encabezados de las columnas
@@ -499,7 +482,6 @@ tabla = html.Table([
 			'overflow': 'hidden',
 			'margin-top': '20px',
             'border':'1px solid #003085'})
-
 # Datos para tabla Trestbps
 datoss1 = [
     ['0-110', '1'],
@@ -507,7 +489,6 @@ datoss1 = [
     ['130-150', '3'],
     ['150-170', '4'],
     ['Mayor a 170', '5']
-
 ]
 # Crear la tabla Trestbps
 tabla1 = html.Table([
@@ -525,7 +506,6 @@ tabla1 = html.Table([
 			'overflow': 'hidden',
 			'margin-top': '20px',
             'border':'1px solid #003085'})
-
 # Datos colesterol
 datoss2 = [
     ['0-140', '1'],
@@ -555,7 +535,6 @@ tabla2 = html.Table([
 			'overflow': 'hidden',
 			'margin-top': '20px',
             'border':'1px solid #003085'})
-
 # Datos fbs
 datoss3 = [
     ['Mayor a 120 mg/dl', '1'],
@@ -577,7 +556,6 @@ tabla3 = html.Table([
 			'overflow': 'hidden',
 			'margin-top': '20px',
             'border':'1px solid #003085'})
-
 # Datos sex
 datoss4 = [
     ['Hombre', '1'],
@@ -599,11 +577,9 @@ tabla4 = html.Table([
 			'overflow': 'hidden',
 			'margin-top': '20px',
             'border':'1px solid #003085'})
-
 # Ruta de la imagen:
 cora = 'https://images.emojiterra.com/google/android-11/512px/1fac0.png'
 uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
-
 app.layout = html.Div([
     html.Div([ html.Div([html.Img(src=cora, height='120px', width='120px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-right': '20px'}),
     html.Div([html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin-left':'15px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
@@ -611,15 +587,15 @@ app.layout = html.Div([
     ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
     html.Div([
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
-    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '140px'}),
-    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
+    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
+    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
     dcc.Input(id="restecg", type="number", min=0, max=2, placeholder="Restecg", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px'}),
     dcc.Input(id="thalach", type="number",min=1, max=11, placeholder="Thalach", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
-    html.Div([dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em', 'margin-left':'428px'}),
+    dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em', 'margin-left':'428px'}),
     dcc.Input(id="exang", type="number",min=0, max=1, placeholder="Exang", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),   
-    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'})]),
     html.Button(
         "Consultar",
         id="btn",
@@ -635,12 +611,11 @@ app.layout = html.Div([
             'position': 'absolute',
             'left': '2px',
             'top': '30px',
-            'margin-left' : '1345px',
+            'margin-left' : '1245px',
             'margin-top' : '220px'
         }
     ),
-    html.Div([html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    
-    html.Div([tabla]),
+    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    html.Div([tabla]),
     html.Div([tabla1],style={'margin-left':'450px','margin-top':'-249px'}),
     html.Div([tabla2],style={'margin-left':'900px','margin-top':'-178px'}),
     html.Div([tabla3],style={'margin-top':'-40px'}),
@@ -648,22 +623,17 @@ app.layout = html.Div([
     html.H1(id="output",style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#11D266','margin':'15px', 'margin-top':'100px'})
 ], style={'text-align': 'right'}),
 ])])
-
-
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
-              Input("age", "value"), Input("sex", "value"),
+              Input("age", "value"), Input("trestbps", "value"),
               Input("chol", "value"), Input("fbs", "value"),
-              Input("restecg", "value"), Input("thalach", "value"),
-              Input("cp","value"),Input("exang", "value"),
-              Input("trestbps", "value"))
-def run_query(n_clicks, age, trestbps, chol, fbs, sex,restecg,thalach,cp,exang):
+              Input("sex","value"),Input("restecg","value"),Input("thalach","value"),
+              Input("cp","value"),Input("exang","value"))
+def run_query(n_clicks, age, trestbps, chol, fbs, sex, restecg, thalach,cp,exang):
     if n_clicks is not None:
-        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Sex": sex, "Chol": chol, "Restecg": restecg, "Thalach": thalach,"CP": cp,
-                                                      "Exang": exang,"Trestbps": trestbps,"Fbs": fbs},)
+        posterior_p2 = infer.query(["Num"], evidence={"Age": age, "Trestbps": trestbps, "Chol": chol, "Fbs": fbs, "Sex": sex,"Restecg": restecg,"Thalach": thalach,"CP": cp,"Exang": exang})
         suma = posterior_p2.values[1]+posterior_p2.values[2]+posterior_p2.values[3]+posterior_p2.values[4]
         return f"La probabilidad del paciente de tener la enfermedad es de: {round(suma*100,2)}%"
-
-
 if __name__ == '__main__':
     app.run_server(debug=False)
     
+
