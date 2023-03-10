@@ -585,18 +585,137 @@ app.layout = html.Div([
     html.Div([html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin-left':'15px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
     html.Div([html.Img(src=uniandes, height='150px', width='240px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '20px'}),
     ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
-    html.Div([
     html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
-    dcc.Input(id="age", type="number", min=1, max=8, placeholder="Age", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px', 'margin-left': '180px'}),
-    dcc.Input(id="trestbps", type="number",min=1, max=5, placeholder="Trestbps", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="chol", type="number",min=0,max=10, placeholder="Chol", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="fbs", type="number",min=0, max=1, placeholder="Fbs", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="sex", type="number",min=0, max=1,placeholder="Sex", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '6px 8px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="restecg", type="number", min=0, max=2, placeholder="Restecg", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em','margin-top':'20px'}),
-    dcc.Input(id="thalach", type="number",min=1, max=11, placeholder="Thalach", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),
-    dcc.Input(id="cp", type="number",min=1,max=4, placeholder="CP", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em', 'margin-left':'428px'}),
-    dcc.Input(id="exang", type="number",min=0, max=1, placeholder="Exang", style={'font-family': 'Poppins, sans-serif', 'border': '2px solid', 'padding': '4px 6px', 'text-align': 'center','font-size': '1.1em'}),   
-    html.Button(
+    html.Div([
+   dcc.Input(
+    id="age",
+    type="number",
+    min=1,
+    max=8,
+    placeholder="Age",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+        'margin-top': '20px',
+        }
+),
+    dcc.Input(
+    id="trestbps",
+    type="number",
+    min=1,
+    max=5,
+    placeholder="Trestbps",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+    dcc.Input(
+    id="chol",
+    type="number",
+    min=0,
+    max=10,
+    placeholder="Chol",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+    dcc.Input(
+    id="fbs",
+    type="number",
+    min=0,
+    max=1,
+    placeholder="Fbs",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+    dcc.Input(
+    id="sex",
+    type="number",
+    min=0,
+    max=1,
+    placeholder="Sex",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+), html.Br(),
+    dcc.Input(
+    id="restecg",
+    type="number",
+    min=0,
+    max=2,
+    placeholder="Restecg",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+    dcc.Input(
+    id="thalach",
+    type="number",
+    min=1,
+    max=11,
+    placeholder="Thalach",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+  dcc.Input(
+    id="cp",
+    type="number",
+    min=1,
+    max=4,
+    placeholder="CP",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+),
+  dcc.Input(
+    id="exang",
+    type="number",
+    min=0,
+    max=1,
+    placeholder="Exang",
+    style={
+        'font-family': 'Poppins, sans-serif',
+        'border': '2px solid',
+        'padding': '6px 8px',
+        'text-align': 'center',
+        'font-size': '1.1em',
+    }
+), ],style={'margin-left':'100px'}),
+    html.Br(),
+    html.Div([html.Button(
         "Consultar",
         id="btn",
         style={
@@ -605,16 +724,15 @@ app.layout = html.Div([
             'color': '#fff',
             'cursor': 'pointer',
             'font-size': '1.2em',
-            'margin': '10px 0',
+            'margin-left': '1400px',
+            'margin': '10px 10px',
             'padding': '6px 8px',
             'transition': 'background-color 0.3s ease',
             'position': 'absolute',
             'left': '2px',
             'top': '30px',
-            'margin-left' : '1245px',
-            'margin-top' : '220px'
         }
-    ),
+    )]),
     html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    html.Div([tabla]),
     html.Div([tabla1],style={'margin-left':'450px','margin-top':'-249px'}),
     html.Div([tabla2],style={'margin-left':'900px','margin-top':'-178px'}),
@@ -622,7 +740,7 @@ app.layout = html.Div([
     html.Div([tabla4],style={'margin-left':'450px','margin-top':'-180px'}),
     html.H1(id="output",style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#11D266','margin':'15px', 'margin-top':'100px'})
 ], style={'text-align': 'right'}),
-])])
+])
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
               Input("age", "value"), Input("trestbps", "value"),
               Input("chol", "value"), Input("fbs", "value"),
