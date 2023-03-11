@@ -472,14 +472,14 @@ datoss = [
 # Crear la tabla edad
 tabla = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Age: Rango de Edad',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Age: Rango de Edad',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -497,14 +497,14 @@ datoss1 = [
 # Crear la tabla Trestbps
 tabla1 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Trestbps: Rango de Trestbps',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Trestbps: Rango de Trestbps',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em'}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss1]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -527,14 +527,14 @@ datoss2 = [
 # Crear la tabla Colesterol
 tabla2 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Chol: Rango de Colesterol',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Chol: Rango de Colesterol',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss2]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -549,14 +549,14 @@ datoss3 = [
 # Crear la tabla fbs
 tabla3 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('fbs: Muestra de Azúcar',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('fbs: Muestra de Azúcar',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss3]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -571,14 +571,14 @@ datoss4 = [
 # Crear la tabla sex
 tabla4 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Sex: Sexo del paciente',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Sex: Sexo del paciente',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss4]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -594,14 +594,14 @@ datoss5 = [
 # Crear la tabla exang
 tabla5 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Exang: Angina',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Exang: Angina',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss5]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -619,14 +619,14 @@ datoss6 = [
 # Crear la tabla cp
 tabla6 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('CP: Dolor de pecho',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('CP: Dolor de pecho',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss6]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -643,14 +643,14 @@ datoss7 = [
 # Crear la tabla restecg
 tabla7 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Restecg: ECG en reposo',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Restecg: ECG en reposo',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss7]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -668,14 +668,14 @@ datoss8 = [
 # Crear la tabla thalach
 tabla8 = html.Table([
     # Encabezados de las columnas
-    html.Tr([html.Th('Thalach: Frecuencia max alcanzada',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Poppins, sans-serif', 'background-color': '#003085',
+    html.Tr([html.Th('Thalach: Frecuencia max alcanzada',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
 			'color': '#ffffff',
 			'text-align': 'left',
 			'font-weight': 'bold',
             'font-size': '1.0em',}),
     # Datos de las filas
     *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss8]
-], style={'text-align': 'center','font-family': 'Poppins, sans-serif', 'border-collapse': 'collapse',
+], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
 			'margin': '30px',
 			'font-size': '0.8em',
 			'min-width': '180px',
@@ -691,15 +691,16 @@ uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
 
 
 
-#-----------------------LAYOUT DE LA APLICACIÓN---------------------------#
+#-----------------------FRONT DE LA APLICACIÓN---------------------------#
 
 
 app.layout = html.Div([
     html.Div([ html.Div([html.Img(src=cora, height='120px', width='120px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-right': '20px'}),
-    html.Div([html.H1("HERRAMIENTA PARA LA DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN", style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#003085','margin-left':'15px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
+    html.Div([html.H1("DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN (BN)", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'center','color':'#000000','margin-left':'70px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
     html.Div([html.Img(src=uniandes, height='150px', width='240px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '20px'}),
     ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
-    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
+    html.Hr(style={'border': '3px solid black', 'margin-top':'-5px'}),
+    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
     html.Div([
    dcc.Input(
     id="age",
@@ -708,7 +709,7 @@ app.layout = html.Div([
     max=8,
     placeholder="Age",
     style={
-        'font-family': 'Poppins, sans-serif',
+       'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -723,7 +724,7 @@ app.layout = html.Div([
     max=5,
     placeholder="Trestbps",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -737,7 +738,7 @@ app.layout = html.Div([
     max=10,
     placeholder="Chol",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -751,7 +752,7 @@ app.layout = html.Div([
     max=1,
     placeholder="Fbs",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -765,7 +766,7 @@ app.layout = html.Div([
     max=1,
     placeholder="Sex",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -779,7 +780,7 @@ app.layout = html.Div([
     max=2,
     placeholder="Restecg",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -793,7 +794,7 @@ app.layout = html.Div([
     max=11,
     placeholder="Thalach",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -807,7 +808,7 @@ app.layout = html.Div([
     max=4,
     placeholder="CP",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
@@ -821,15 +822,16 @@ app.layout = html.Div([
     max=1,
     placeholder="Exang",
     style={
-        'font-family': 'Poppins, sans-serif',
+        'font-family': 'Lucida Bright, Georgia, serif',
         'border': '2px solid',
         'padding': '6px 8px',
         'text-align': 'center',
         'font-size': '1.1em',
     }
-), ],style={'margin-left':'100px'}),
-    html.Br(),
-    html.Div([html.Button(
+), ],style={'margin-left':'220px', 'margin-top':'-10px'}),
+    
+    html.Div([html.Br(),
+        html.Button(
         "Consultar",
         id="btn",
         style={
@@ -837,19 +839,19 @@ app.layout = html.Div([
             'border': 'none',
             'color': '#fff',
             'cursor': 'pointer',
-            'font-size': '1.2em',
+            'font-size': '1.3em',
             'margin': '10px 10px',
             'padding': '6px 8px',
             'transition': 'background-color 0.3s ease',
-            'position': 'absolute',
             'left': '2px',
             'top': '30px',
+            'font-family': 'Lucida Bright, Georgia, serif',
         }
-    )],style={'margin-left':'900px'}),
-    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Poppins, sans-serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px'}),    
-    html.Div([tabla, tabla2, tabla1, tabla3, tabla4], style={'display': 'flex','align-items': 'center'}),
-    html.Div([tabla5, tabla6, tabla7, tabla8],style={'display': 'flex','align-items': 'center'}),
-    html.H1(id="output",style={'font-family': 'Poppins, sans-serif', 'text-align': 'center','color':'#11D266','margin':'15px', 'margin-top':'100px'})
+    )],style={'margin-left':'1085px', 'margin-top':'-58px'}),
+    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px', 'margin-left':'100px'}),    
+    html.Div([tabla, tabla2, tabla1, tabla3, tabla4], style={'display': 'flex','align-items': 'center','margin-left':'120px','margin-top':'-15px'}),
+    html.Div([tabla5, tabla6, tabla7, tabla8],style={'display': 'flex','align-items': 'center', 'margin-left':'250px','margin-top':'-30px'}),
+    html.H1(id="output",style={'font-family': 'Lucida Bright, Georgia, serif','text-align': 'center','color':'#50B452','margin':'15px', 'margin-top':'20px'})
 ], style={'text-align': 'right'}),
 ])
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
