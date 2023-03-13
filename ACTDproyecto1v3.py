@@ -474,14 +474,16 @@ app = dash.Dash(__name__)
 
 # Datos para la tabla edad
 datoss = [
-    ['1-30', '1'],
-    ['31-39','2'],
-    ['40-49', '3'],
-    ['50-55', '4'],
-    ['56-59', '5'],
-    ['60-65', '6'],
-    ['65-70', '7'],
-    ['Mayor a 70', '8'],
+    ['1-35', '1'],
+    ['36-40','2'],
+    ['41-45', '3'],
+    ['46-50', '4'],
+    ['51-55', '5'],
+    ['56-60', '6'],
+    ['61-65', '7'],
+    ['66-70', '8'],
+    ['71-75', '9'],
+    ['Mayores de 75', '10'],
 ]
 # Crear la tabla edad
 tabla = html.Table([
@@ -675,9 +677,17 @@ tabla7 = html.Table([
 
 # Datos thalach
 datoss8 = [
-    ['rango 1', '0'],
-    ['rango 2','1'],
-    ['rango n+1','?']
+    ['1-100', '1'],
+    ['101-110','2'],
+    ['111-120','3'],
+    ['121-130', '4'],
+    ['131-140','5'],
+    ['141-150','6'],
+    ['151-160', '7'],
+    ['161-170','8'],
+    ['171-180','9'],
+    ['181-190', '10'],
+    ['Mayores a 190','11']    
 ]
 # Crear la tabla thalach
 tabla8 = html.Table([
@@ -720,7 +730,7 @@ app.layout = html.Div([
     id="age",
     type="number",
     min=1,
-    max=8,
+    max=10,
     placeholder="Age",
     style={
        'font-family': 'Lucida Bright, Georgia, serif',
