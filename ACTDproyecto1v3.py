@@ -345,6 +345,20 @@ sc7.update_layout(
 sc7.show()
 """
 
+#------------ MAPA DE CALOR -----------------#
+
+matrizcorr = df_Cleveland.corr()
+
+mpc = px.imshow(matrizcorr, 
+                 x=matrizcorr.columns, 
+                 y=matrizcorr.columns,
+                 color_continuous_scale='RdBu')
+mpc.update_layout(title='Matriz de Correlación para el Dataset Cleveland',
+                   xaxis_title='Variables',
+                   yaxis_title='Variables')
+mpc.show()
+
+
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
 
