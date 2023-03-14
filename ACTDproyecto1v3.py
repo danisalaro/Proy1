@@ -27,7 +27,7 @@ print(df_Cleveland)
 
 
 # Thalach:
-"""
+
 hist0 = px.histogram(df_Cleveland, x="Thalach", title="HISTOGRAMA DE MÁXIMO RATE REGISTRADO",
                 labels={"Thalach": "Nivel Registrado", "count": "Frecuencia",})
 
@@ -343,7 +343,7 @@ sc7.update_layout(
     }
 )
 sc7.show()
-"""
+
 
 #------------ MAPA DE CALOR -----------------#
 
@@ -874,7 +874,7 @@ app.layout = html.Div([
     )],style={'margin-left':'1085px', 'margin-top':'-58px'}),
     html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px', 'margin-left':'100px'}),    
     html.Div([tabla, tabla2, tabla1, tabla3, tabla4], style={'display': 'flex','align-items': 'center','margin-left':'120px','margin-top':'-15px'}),
-    html.Div([tabla5, tabla6, tabla7, tabla8],style={'display': 'flex','align-items': 'center', 'margin-left':'250px','margin-top':'-30px'}),
+    html.Div([tabla5, tabla6, tabla7, tabla8],style={'display': 'flex','align-items': 'center', 'margin-left':'250px','margin-top':'-40px'}),
     html.H1(id="output",style={'font-family': 'Lucida Bright, Georgia, serif','text-align': 'center','color':'#50B452','margin':'15px', 'margin-top':'20px'})
 ], style={'text-align': 'right'}),
 ])
