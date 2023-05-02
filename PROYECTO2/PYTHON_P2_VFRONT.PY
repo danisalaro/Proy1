@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 28 19:39:49 2023
 
-@author: JUAN DIEGO PRADA y DANIEL FELIPE SALAZAR
+"""
+PROYECTO REALIZIADO POR: JUAN DIEGO PRADA y DANIEL FELIPE SALAZAR
 """
 
 import dash
@@ -102,7 +100,11 @@ fig1.update_layout(
 )
 
 
-#############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
+#################################################################################################################
+#--------------------------------------CONSTRUCCIÓN DE LA RED BAYESIANA-----------------------------------------#
+#################################################################################################################
+
+
 df_mod = df_Cleveland
 
 # para valores entre 0 y 110, 1
@@ -219,6 +221,7 @@ app = dash.Dash(__name__)
 # Ruta de la imagen:
 cora = 'https://images.emojiterra.com/google/android-11/512px/1fac0.png'
 uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
+doc = 'https://www.pngplay.com/wp-content/uploads/7/Doctor-Standing-PNG-HD-Quality.png'
 
 
 ################################################################################################
@@ -233,7 +236,7 @@ app.css.append_css({
     'external_url': 'https://bootswatch.com/4/darkly/bootstrap.css'
 })
 
-
+#Creación de cada uno de los tabs
 
 bienvenida = dbc.Card(
     dbc.CardBody(
@@ -268,138 +271,140 @@ bienvenida = dbc.Card(
 
 tab1_content = dbc.Card(
     dbc.CardBody(
-        [       
-                html.Br(),
-                dbc.Row([
-                    dbc.Row(
-                    
-                        dbc.Col(html.H1("HERRAMIENTA PARA LA DETECCIÓN DE ENFERMEDADES DEL CORAZÓN", className="text-center", style={'margin-top':'-20px'}))),
-                    html.Br(),
-                    html.Br(),
-                    dbc.Col(html.Div([ 
-                        html.P("Por favor seleccione los datos del paciente:"),
-                        dcc.Dropdown(
-                        id="age",
-                        options=[
-                                {'label': '1-35', 'value': 1},
-                                {'label': '36-40', 'value': 2},
-                                {'label': '41-45', 'value': 3},
-                                {'label': '46-50', 'value': 4},
-                                {'label': '51-55', 'value': 5},
-                                {'label': '56-60', 'value': 6},
-                                {'label': '61-65', 'value': 7},
-                                {'label': '66-70', 'value': 8},
-                                {'label': '71-75', 'value': 9},
-                                {'label': 'Mayores de 75', 'value': 10},
-                                ],
-                        placeholder = "Edad"
-                    ),
-                        dcc.Dropdown(
-                        id="trestbps",
-                        options=[
-                                {'label': '0-110', 'value': 1},
-                                {'label': '110-130', 'value': 2},
-                                {'label': '130-150', 'value': 3},
-                                {'label': '150-170', 'value': 4},
-                                {'label': 'Mayor a 170', 'value': 5},
-                                ],
-                        placeholder="Trestbps",
-                    
-                    ),
-                        dcc.Dropdown(
-                        id="chol",
-                        options=[
-                                {'label': '0-140', 'value': 1},
-                                {'label': '140-180', 'value': 2},
-                                {'label': '180-220', 'value': 3},
-                                {'label': '220-260', 'value': 4},
-                                {'label': '260-300', 'value': 5},
-                                {'label': '300-340', 'value': 6},
-                                {'label': '340-380', 'value': 7},
-                                {'label': '380-420', 'value': 8},
-                                {'label': '420-460', 'value': 9},
-                                {'label': 'Mayor a 460', 'value': 10},
-                                ],
-                        placeholder="Chol",
-                        
-                    ),
-                        dcc.Dropdown(
-                        id="fbs",
-                        options=[
-                                {'label': 'Mayor a 120 mg/dl', 'value': 1},
-                                {'label': 'Menor o igual a 120 mg/dl', 'value': 0},
-                                ],
-                        placeholder="Fbs",
-                        
-                    ),
-                        dcc.Dropdown(
-                        id="sex",
-                            options=[
-                                {'label': 'Hombre', 'value': 1},
-                                {'label': 'Mujer', 'value': 0},
-                                ],
-                        placeholder="Sex",
-                    
-                    ),
-                        dcc.Dropdown(
-                        id="restecg",
-                        options=[
-                                {'label': 'ECG normal', 'value': 0},
-                                {'label': 'Anomalía onda ST-T', 'value': 1},
-                                {'label': 'Hipertrofia venticular', 'value': 2},
-                                ],
-                        placeholder="Restecg",
-                    
-                    ),
-                        dcc.Dropdown(
-                        id="thalach",
-                        options=[
-                                {'label': '1-100', 'value': 1},
-                                {'label': '101-110', 'value': 2},
-                                {'label': '111-120', 'value': 3},
-                                {'label': '121-130', 'value': 4},
-                                {'label': '131-140', 'value': 5},
-                                {'label': '141-150', 'value': 6},
-                                {'label': '151-160', 'value': 7},
-                                {'label': '161-170', 'value': 8},
-                                {'label': '171-180', 'value': 9},
-                                {'label': '181-190', 'value': 10},
-                                {'label': 'Mayores a 190', 'value': 11},
-                                ],
-                        placeholder="Thalach",
+        [       html.Div([
+                        html.Br(),
+                        dbc.Row([
+                            dbc.Row(
+                            
+                                dbc.Col(html.H1("HERRAMIENTA PARA LA DETECCIÓN DE ENFERMEDADES DEL CORAZÓN", className="text-center", style={'margin-top':'-20px'}))),
+                            html.Br(),
+                            html.Br(),
+                            html.Br(),
+                            dbc.Col(html.Div([ 
+                                html.P("Por favor seleccione los datos del paciente:"),
+                                dcc.Dropdown(
+                                id="age",
+                                options=[
+                                        {'label': '1-35', 'value': 1},
+                                        {'label': '36-40', 'value': 2},
+                                        {'label': '41-45', 'value': 3},
+                                        {'label': '46-50', 'value': 4},
+                                        {'label': '51-55', 'value': 5},
+                                        {'label': '56-60', 'value': 6},
+                                        {'label': '61-65', 'value': 7},
+                                        {'label': '66-70', 'value': 8},
+                                        {'label': '71-75', 'value': 9},
+                                        {'label': 'Mayores de 75', 'value': 10},
+                                        ],
+                                placeholder = "Edad"
+                            ),
+                                dcc.Dropdown(
+                                id="trestbps",
+                                options=[
+                                        {'label': '0-110', 'value': 1},
+                                        {'label': '110-130', 'value': 2},
+                                        {'label': '130-150', 'value': 3},
+                                        {'label': '150-170', 'value': 4},
+                                        {'label': 'Mayor a 170', 'value': 5},
+                                        ],
+                                placeholder="Presión arterial en reposo",
+                            
+                            ),
+                                dcc.Dropdown(
+                                id="chol",
+                                options=[
+                                        {'label': '0-140', 'value': 1},
+                                        {'label': '140-180', 'value': 2},
+                                        {'label': '180-220', 'value': 3},
+                                        {'label': '220-260', 'value': 4},
+                                        {'label': '260-300', 'value': 5},
+                                        {'label': '300-340', 'value': 6},
+                                        {'label': '340-380', 'value': 7},
+                                        {'label': '380-420', 'value': 8},
+                                        {'label': '420-460', 'value': 9},
+                                        {'label': 'Mayor a 460', 'value': 10},
+                                        ],
+                                placeholder="Colesterol",
+                                
+                            ),
+                                dcc.Dropdown(
+                                id="fbs",
+                                options=[
+                                        {'label': 'Mayor a 120 mg/dl', 'value': 1},
+                                        {'label': 'Menor o igual a 120 mg/dl', 'value': 0},
+                                        ],
+                                placeholder="Nivel de azúcar en la sangre",
+                                
+                            ),
+                                dcc.Dropdown(
+                                id="sex",
+                                    options=[
+                                        {'label': 'Hombre', 'value': 1},
+                                        {'label': 'Mujer', 'value': 0},
+                                        ],
+                                placeholder="Género",
+                            
+                            ),
+                                dcc.Dropdown(
+                                id="restecg",
+                                options=[
+                                        {'label': 'ECG normal', 'value': 0},
+                                        {'label': 'Anomalía onda ST-T', 'value': 1},
+                                        {'label': 'Hipertrofia venticular', 'value': 2},
+                                        ],
+                                placeholder="Resultado de Ecocardiograma (ECG)",
+                            
+                            ),
+                                dcc.Dropdown(
+                                id="thalach",
+                                options=[
+                                        {'label': '1-100', 'value': 1},
+                                        {'label': '101-110', 'value': 2},
+                                        {'label': '111-120', 'value': 3},
+                                        {'label': '121-130', 'value': 4},
+                                        {'label': '131-140', 'value': 5},
+                                        {'label': '141-150', 'value': 6},
+                                        {'label': '151-160', 'value': 7},
+                                        {'label': '161-170', 'value': 8},
+                                        {'label': '171-180', 'value': 9},
+                                        {'label': '181-190', 'value': 10},
+                                        {'label': 'Mayores a 190', 'value': 11},
+                                        ],
+                                placeholder="Máximo ritmo cardiaco alcanzado",
 
-                    ),
-                    dcc.Dropdown(
-                        id="cp",
-                        options=[
-                                {'label': 'Angina típica', 'value': 1},
-                                {'label': 'Angina atípica', 'value': 2},
-                                {'label': 'Dolor no anginal', 'value': 3},
-                                {'label': 'Asintomático', 'value': 4},
-                                ],
-                        placeholder="CP",
-                        
-                    ),
-                    dcc.Dropdown(
-                        id="exang",
-                        options=[
-                                {'label': 'Experimentó angina', 'value': 1},
-                                {'label': 'No experimentó angina', 'value': 0},
-                                ],
-                        placeholder="Exang",
-                        
-                    )]), width=6),
-                    
-                ]),
-                html.Div([
-                    html.Br(),
-                    dbc.Button("Consultar", color="dark", className="me-1", id='btn')
-                ]),
-                html.Div([
-                    html.Br(),
-                    html.H4(id="output")
-                , ])
-                
+                            ),
+                            dcc.Dropdown(
+                                id="cp",
+                                options=[
+                                        {'label': 'Angina típica', 'value': 1},
+                                        {'label': 'Angina atípica', 'value': 2},
+                                        {'label': 'Dolor no anginal', 'value': 3},
+                                        {'label': 'Asintomático', 'value': 4},
+                                        ],
+                                placeholder="Tipo de dolor en el pecho",
+                                
+                            ),
+                            dcc.Dropdown(
+                                id="exang",
+                                options=[
+                                        {'label': 'Experimentó angina', 'value': 1},
+                                        {'label': 'No experimentó angina', 'value': 0},
+                                        ],
+                                placeholder="Angina",
+                                
+                            )]), width=6),
+                            
+                            dbc.Col(html.Img(src=doc), style={'margin-left':'70px'}),
+                        ]),
+                        html.Div([
+                            html.Br(),
+                            dbc.Button("Consultar", color="dark", className="me-1", id='btn')
+                        ]),
+                        html.Div([
+                            html.Br(),
+                            html.H4(id="output")
+                        , ])
+                ], style={'margin':'30px'})
         ]
     ),
     className="mt-3", style={'border': 'none', 'background-color': 'transparent','width': '100%', 'height': '100%'}
@@ -441,7 +446,6 @@ tab2_content = dbc.Card(
     ),
     className="mt-3", style={'border': 'none', 'background-color': 'transparent','width': '100%', 'height': '100%'}
 )
-
 
 
 tabs = dbc.Tabs(
