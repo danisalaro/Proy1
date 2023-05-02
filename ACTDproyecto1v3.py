@@ -6,11 +6,11 @@ Created on Tue Feb 28 19:39:49 2023
 """
 
 import dash
-from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import pandas as pd
 import numpy as np
+from dash import dcc
 import plotly.express as px
 import plotly.graph_objects as go
 from pgmpy.models import BayesianNetwork
@@ -21,6 +21,7 @@ df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
 
 print(df_Cleveland)
+'''
 #############################----------------------------------------- SECCIÓN DE ANÁLISIS DESCRIPTIVO DE LOS DATOS Y GRÁFICAS--------------------------------------######
 
 #-------------------HISTOGRAMAS-------------------------#
@@ -357,7 +358,7 @@ mpc.update_layout(title='Matriz de Correlación para el Dataset Cleveland',
                    xaxis_title='Variables',
                    yaxis_title='Variables')
 mpc.show()
-
+'''
 
 #############################------------------------------------------BAYESIAN NETWORK----------------------------------------------##########
 
@@ -470,245 +471,6 @@ from pgmpy.inference import VariableElimination
 infer = VariableElimination (model)
 app = dash.Dash(__name__)
 
-#-------- TABLAS DE CONVENCIONES PARA EL DASH -------------#
-
-# Datos para la tabla edad
-datoss = [
-    ['1-35', '1'],
-    ['36-40','2'],
-    ['41-45', '3'],
-    ['46-50', '4'],
-    ['51-55', '5'],
-    ['56-60', '6'],
-    ['61-65', '7'],
-    ['66-70', '8'],
-    ['71-75', '9'],
-    ['Mayores de 75', '10'],
-]
-# Crear la tabla edad
-tabla = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Age: Rango de Edad',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-# Datos para tabla Trestbps
-datoss1 = [
-    ['0-110', '1'],
-    ['110-130','2'],
-    ['130-150', '3'],
-    ['150-170', '4'],
-    ['Mayor a 170', '5']
-]
-# Crear la tabla Trestbps
-tabla1 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Trestbps: Rango de Trestbps',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em'}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss1]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-# Datos colesterol
-datoss2 = [
-    ['0-140', '1'],
-    ['140-180','2'],
-    ['180-220', '3'],
-    ['220-260', '4'],
-    ['260-300', '5'],
-    ['300-340', '6'],
-    ['340-380', '7'],
-    ['380-420', '8'],
-    ['420-460', '9'],
-    ['Mayor a 460', '10']
-]
-# Crear la tabla Colesterol
-tabla2 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Chol: Rango de Colesterol',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss2]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-# Datos fbs
-datoss3 = [
-    ['Mayor a 120 mg/dl', '1'],
-    ['Menor o igual a 120 mg/dl','0']
-]
-# Crear la tabla fbs
-tabla3 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('fbs: Muestra de Azúcar',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss3]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-# Datos sex
-datoss4 = [
-    ['Hombre', '1'],
-    ['Mujer','0']
-]
-# Crear la tabla sex
-tabla4 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Sex: Sexo del paciente',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss4]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-
-# Datos exang
-datoss5 = [
-    ['Experimentó angina', '1'],
-    ['No experimentó angina','0']
-]
-# Crear la tabla exang
-tabla5 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Exang: Angina',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss5]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-
-# Datos cp
-datoss6 = [
-    ['Angina típica', '1'],
-    ['Angina atípica','2'],
-    ['Dolor no anginal','3'],
-    ['Asintomático','4']
-]
-# Crear la tabla cp
-tabla6 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('CP: Dolor de pecho',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss6]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-
-# Datos restecg
-datoss7 = [
-    ['ECG normal', '0'],
-    ['Anomalía onda ST-T','1'],
-    ['Hipertrofia venticular','2']
-]
-# Crear la tabla restecg
-tabla7 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Restecg: ECG en reposo',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss7]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-
-
-# Datos thalach
-datoss8 = [
-    ['1-100', '1'],
-    ['101-110','2'],
-    ['111-120','3'],
-    ['121-130', '4'],
-    ['131-140','5'],
-    ['141-150','6'],
-    ['151-160', '7'],
-    ['161-170','8'],
-    ['171-180','9'],
-    ['181-190', '10'],
-    ['Mayores a 190','11']    
-]
-# Crear la tabla thalach
-tabla8 = html.Table([
-    # Encabezados de las columnas
-    html.Tr([html.Th('Thalach: Frecuencia max alcanzada',style ={'text-align': 'center'}), html.Th('#',style ={'text-align': 'center'})], style = {'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'background-color': '#003085',
-			'color': '#ffffff',
-			'text-align': 'left',
-			'font-weight': 'bold',
-            'font-size': '1.0em',}),
-    # Datos de las filas
-    *[html.Tr([html.Td(d[0]), html.Td(d[1])], style ={'text-align': 'center'}) for d in datoss8]
-], style={'text-align': 'center','font-family': 'Lucida Bright, Georgia, serif', 'border-collapse': 'collapse',
-			'margin': '30px',
-			'font-size': '0.8em',
-			'min-width': '180px',
-			'overflow': 'hidden',
-			'margin-top': '20px',
-            'border':'1px solid #003085'})
-
-
-
 # Ruta de la imagen:
 cora = 'https://images.emojiterra.com/google/android-11/512px/1fac0.png'
 uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
@@ -716,168 +478,206 @@ uniandes = 'https://uniandes.edu.co/sites/default/files/logo-uniandes.png'
 
 
 #-----------------------FRONT DE LA APLICACIÓN---------------------------#
+import dash_bootstrap_components as dbc
+app = dash.Dash(external_stylesheets=[dbc.themes.LUX])
 
+app.css.append_css({
+    'external_url': 'https://bootswatch.com/4/darkly/bootstrap.css'
+})
+
+bienvenida = dbc.Card(
+    dbc.CardBody(
+        [
+            html.Div([
+                html.H1("PROYECTO ANALÍTICA COMPUTACIONAL PARA LA TOMA DE DECISIONES", className="text-center"),
+                html.Br(),
+                html.Br(),
+                html.P("El objetivo del presente proyecto consiste en atender las necesidades de los médicos especialistas con el fin de poder, a través de redes bayesianas identificar si el paciente padece una enefermedad del corazón. Para este se utilizó la base de datos de la Universidad de California en Irvine, en donde se presenta el resultado de un estudio realizado en Cleveland, Ohio. Los datos pueden ser escargados a través del siguiente enlace: https://archive-beta.ics.uci.edu/dataset/45/heart+disease", style={'text-align':'justify'}),
+                html.Div([
+                        html.Img(src=uniandes)
+                    ], style={'text-align': 'center'}),
+                html.Br(),
+                html.P("Proyecto realizado por: Juan Diego Prada y Daniel Felipe Salazar"),
+                html.H4("DISCLAIMER: El presente proyecto no representa a la Universidad de los Andes ni sus intereses.", style={'color': 'red', 'text-align':'center'}, className="fst-italic")
+        ], style={'margin':'30px'})
+            
+        ]
+    ),
+    className="mt-3", 
+    style={
+        'border': 'none', 
+        'background-color': 'transparent',
+        'width': '100%', 
+        'height': '100%', 
+        'display': 'flex', 
+        'justify-content': 'center', 
+        'align-items': 'center',
+        'flex-direction': 'column'
+    }
+)
+
+tab1_content = dbc.Card(
+    dbc.CardBody(
+        [
+                html.Br(),
+                dbc.Row([
+                    dbc.Row(
+                    
+                        dbc.Col(html.H1("HERRAMIENTA PARA LA DETECCIÓN DE ENFERMEDADES DEL CORAZÓN", className="text-center", style={'margin-top':'-20px'}))),
+                    html.Br(),
+                    html.Br(),
+                    dbc.Col(html.Div([ 
+                        html.P("Por favor seleccione los datos del paciente:"),
+                        dcc.Dropdown(
+                        id="age",
+                        options=[
+                                {'label': '1-35', 'value': 1},
+                                {'label': '36-40', 'value': 2},
+                                {'label': '41-45', 'value': 3},
+                                {'label': '46-50', 'value': 4},
+                                {'label': '51-55', 'value': 5},
+                                {'label': '56-60', 'value': 6},
+                                {'label': '61-65', 'value': 7},
+                                {'label': '66-70', 'value': 8},
+                                {'label': '71-75', 'value': 9},
+                                {'label': 'Mayores de 75', 'value': 10},
+                                ],
+                        placeholder = "Edad"
+                    ),
+                        dcc.Dropdown(
+                        id="trestbps",
+                        options=[
+                                {'label': '0-110', 'value': 1},
+                                {'label': '110-130', 'value': 2},
+                                {'label': '130-150', 'value': 3},
+                                {'label': '150-170', 'value': 4},
+                                {'label': 'Mayor a 170', 'value': 5},
+                                ],
+                        placeholder="Trestbps",
+                    
+                    ),
+                        dcc.Dropdown(
+                        id="chol",
+                        options=[
+                                {'label': '0-140', 'value': 1},
+                                {'label': '140-180', 'value': 2},
+                                {'label': '180-220', 'value': 3},
+                                {'label': '220-260', 'value': 4},
+                                {'label': '260-300', 'value': 5},
+                                {'label': '300-340', 'value': 6},
+                                {'label': '340-380', 'value': 7},
+                                {'label': '380-420', 'value': 8},
+                                {'label': '420-460', 'value': 9},
+                                {'label': 'Mayor a 460', 'value': 10},
+                                ],
+                        placeholder="Chol",
+                        
+                    ),
+                        dcc.Dropdown(
+                        id="fbs",
+                        options=[
+                                {'label': 'Mayor a 120 mg/dl', 'value': 1},
+                                {'label': 'Menor o igual a 120 mg/dl', 'value': 0},
+                                ],
+                        placeholder="Fbs",
+                        
+                    ),
+                        dcc.Dropdown(
+                        id="sex",
+                            options=[
+                                {'label': 'Hombre', 'value': 1},
+                                {'label': 'Mujer', 'value': 0},
+                                ],
+                        placeholder="Sex",
+                    
+                    ),
+                        dcc.Dropdown(
+                        id="restecg",
+                        options=[
+                                {'label': 'ECG normal', 'value': 0},
+                                {'label': 'Anomalía onda ST-T', 'value': 1},
+                                {'label': 'Hipertrofia venticular', 'value': 2},
+                                ],
+                        placeholder="Restecg",
+                    
+                    ),
+                        dcc.Dropdown(
+                        id="thalach",
+                        options=[
+                                {'label': '1-100', 'value': 1},
+                                {'label': '101-110', 'value': 2},
+                                {'label': '111-120', 'value': 3},
+                                {'label': '121-130', 'value': 4},
+                                {'label': '131-140', 'value': 5},
+                                {'label': '141-150', 'value': 6},
+                                {'label': '151-160', 'value': 7},
+                                {'label': '161-170', 'value': 8},
+                                {'label': '171-180', 'value': 9},
+                                {'label': '181-190', 'value': 10},
+                                {'label': 'Mayores a 190', 'value': 11},
+                                ],
+                        placeholder="Thalach",
+
+                    ),
+                    dcc.Dropdown(
+                        id="cp",
+                        options=[
+                                {'label': 'Angina típica', 'value': 1},
+                                {'label': 'Angina atípica', 'value': 2},
+                                {'label': 'Dolor no anginal', 'value': 3},
+                                {'label': 'Asintomático', 'value': 4},
+                                ],
+                        placeholder="CP",
+                        
+                    ),
+                    dcc.Dropdown(
+                        id="exang",
+                        options=[
+                                {'label': 'Experimentó angina', 'value': 1},
+                                {'label': 'No experimentó angina', 'value': 0},
+                                ],
+                        placeholder="Exang",
+                        
+                    )]), width=6),
+                    
+                ]),
+                html.Div([
+                    html.Br(),
+                    dbc.Button("Consultar", color="dark", className="me-1", id='btn')
+                ]),
+                html.Div([
+                    html.Br(),
+                    html.H4(id="output")
+                , ])
+        ]
+    ),
+    className="mt-3", style={'border': 'none', 'background-color': 'transparent','width': '100%', 'height': '100%'}
+)
+
+tab2_content = dbc.Card(
+    dbc.CardBody(
+        [
+            html.P("This is tab 2!", className="card-text"),
+            dbc.Button("Don't click here", color="danger"),
+        ]
+    ),
+    className="mt-3", style={'border': 'none', 'background-color': 'transparent','width': '100%', 'height': '100%'}
+)
+
+
+tabs = dbc.Tabs(
+    [
+        dbc.Tab(bienvenida, label="Bienvenida"),
+        dbc.Tab(tab1_content, label="Interfaz"),
+        dbc.Tab(tab2_content, label="Gráficos de Interés"),
+        
+    ]
+)
 
 app.layout = html.Div([
-    html.Div([ html.Div([html.Img(src=cora, height='120px', width='120px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-right': '20px'}),
-    html.Div([html.H1("DETECCIÓN DE PROBABILIDAD DE PADECER ENFERMEDAD DEL CORAZÓN (BN)", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'center','color':'#000000','margin-left':'70px'})], style={'display': 'inline-block', 'vertical-align': 'middle'}),
-    html.Div([html.Img(src=uniandes, height='150px', width='240px'),], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '20px'}),
-    ], style={'display': 'flex', 'justify-content': 'space-between', 'align-items': 'center', 'text-align': 'center'}),    
-    html.Hr(style={'border': '3px solid black', 'margin-top':'-5px'}),
-    html.H2("Ingresar valores para la consulta:", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'left', 'color':'#FF4720', 'margin-left':'100px'}),
-    html.Div([
-   dcc.Input(
-    id="age",
-    type="number",
-    min=1,
-    max=10,
-    placeholder="Age",
-    style={
-       'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-        'margin-top': '20px',
-        }
-),
-    dcc.Input(
-    id="trestbps",
-    type="number",
-    min=1,
-    max=5,
-    placeholder="Trestbps",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-    dcc.Input(
-    id="chol",
-    type="number",
-    min=0,
-    max=10,
-    placeholder="Chol",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-    dcc.Input(
-    id="fbs",
-    type="number",
-    min=0,
-    max=1,
-    placeholder="Fbs",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-    dcc.Input(
-    id="sex",
-    type="number",
-    min=0,
-    max=1,
-    placeholder="Sex",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-), html.Br(),
-    dcc.Input(
-    id="restecg",
-    type="number",
-    min=0,
-    max=2,
-    placeholder="Restecg",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-    dcc.Input(
-    id="thalach",
-    type="number",
-    min=1,
-    max=11,
-    placeholder="Thalach",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-  dcc.Input(
-    id="cp",
-    type="number",
-    min=1,
-    max=4,
-    placeholder="CP",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-),
-  dcc.Input(
-    id="exang",
-    type="number",
-    min=0,
-    max=1,
-    placeholder="Exang",
-    style={
-        'font-family': 'Lucida Bright, Georgia, serif',
-        'border': '2px solid',
-        'padding': '6px 8px',
-        'text-align': 'center',
-        'font-size': '1.1em',
-    }
-), ],style={'margin-left':'220px', 'margin-top':'-10px'}),
-    
-    html.Div([html.Br(),
-        html.Button(
-        "Consultar",
-        id="btn",
-        style={
-            'background-color': '#a4a5a4',
-            'border': 'none',
-            'color': '#fff',
-            'cursor': 'pointer',
-            'font-size': '1.3em',
-            'margin': '10px 10px',
-            'padding': '6px 8px',
-            'transition': 'background-color 0.3s ease',
-            'left': '2px',
-            'top': '30px',
-            'font-family': 'Lucida Bright, Georgia, serif',
-        }
-    )],style={'margin-left':'1085px', 'margin-top':'-58px'}),
-    html.Div([    html.H3("Convenciones para la herramienta:", style={'font-family': 'Lucida Bright, Georgia, serif', 'text-align': 'left','color':'#003085','margin':'15px', 'margin-top':'15px', 'margin-left':'100px'}),    
-    html.Div([tabla, tabla2, tabla1, tabla3, tabla4], style={'display': 'flex','align-items': 'center','margin-left':'120px','margin-top':'-15px'}),
-    html.Div([tabla5, tabla6, tabla7, tabla8],style={'display': 'flex','align-items': 'center', 'margin-left':'250px','margin-top':'-40px'}),
-    html.H1(id="output",style={'font-family': 'Lucida Bright, Georgia, serif','text-align': 'center','color':'#50B452','margin':'15px', 'margin-top':'20px'})
-], style={'text-align': 'right'}),
-])
+    tabs,    
+],style={"margin-top": "30px", "margin-left":"60px"})
+
 @app.callback(Output("output", "children"), Input("btn", "n_clicks"),
               Input("age", "value"), Input("trestbps", "value"),
               Input("chol", "value"), Input("fbs", "value"),
