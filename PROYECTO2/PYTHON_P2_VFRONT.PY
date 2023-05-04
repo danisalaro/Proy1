@@ -41,21 +41,12 @@ mpc.update_layout(
         yaxis_title='Variables',
         font_color='black'
     )
-
-# Visualización 2: RELACIÓN ENFERMEDAD CON EDAD Y COLESTEROL
-
-sc4 = px.scatter(df_Cleveland, x='Chol', y='Age', title='RELACIÓN ENTRE COLESTEROL Y EDAD', 
-                 labels={"Chol": "Colesterol registrado", "Age": "Edad"}, 
-                 color=df_Cleveland['Sex'].apply(lambda x: 'Hombre' if x>0 else 'Mujer'),
-                 facet_col=df_Cleveland["Sex"].apply(lambda x: 'Hombre' if x>0 else 'Mujer'),
-                 )
-
-sc4.update_layout(
-    title={
-        'text': "RELACIÓN ENTRE COLESTEROL Y EDAD POR SEXO",
-        'font': dict(size=17, color='black')
-    }
+mpc.update_layout(
+    width=1000,
+    height=500
 )
+
+
 # Crear una nueva columna "Target" que represente si tiene o no enfermedad
 df_Cleveland['Target'] = df_Cleveland['Num'].map(lambda x: 1 if x>0 else 0)
 
@@ -65,21 +56,24 @@ df_mean_age = df_Cleveland.groupby(["Target", "Sex"], as_index=False)["Age"].mea
 
 # Iterar sobre los dos valores posibles de sex para crear cada gráfico
 
-fig = px.bar(df_mean_age, x="Target", y="Age", title="PROMEDIO DE EDAD SEGÚN PADECIMIENTO ENFERMEDAD", facet_col="Sex", 
+fig = px.bar(df_mean_age, x="Target", y="Age", title="PROMEDIO DE EDAD SEGÚN PADECIMIENTO ENFERMEDAD",range_y=(0,75), 
              color=df_mean_age['Sex'].apply(lambda x: 'Hombre' if x>0 else 'Mujer'), 
              barmode='group')
     
 fig.update_layout(
-    xaxis_title="Tiene la enfermedad",
+    xaxis_title="",
     yaxis_title="Promedio de Edad",
     font=dict(size=12, color='black'),
     legend=dict(title='', font=dict(size=12)),
     margin=dict(t=80),
     plot_bgcolor='white',
-    coloraxis=dict(colorbar=dict(title='', tickfont=dict(size=12)), colorbar_len=0.3)
+    coloraxis=dict(colorbar=dict(title='', tickfont=dict(size=12)), colorbar_len=0.3),
 )
-
 fig.update_xaxes(range=[-0.5, 1.5], tickvals=[0, 1], ticktext=['No tiene la enfermedad', 'Tiene la enfermedad'])
+fig.update_layout(
+    width=1000,
+    height=500
+)
 
 # Maximo rate registrado promedio con enfermedad para hombres y mujeres
 
@@ -98,7 +92,10 @@ fig1.update_layout(
     plot_bgcolor='white',
     coloraxis=dict(colorbar=dict(title='', tickfont=dict(size=12)), colorbar_len=0.3)
 )
-
+fig1.update_layout(
+    width=1000,
+    height=500
+)
 
 #################################################################################################################
 #--------------------------------------CONSTRUCCIÓN DE LA RED BAYESIANA-----------------------------------------#
@@ -416,6 +413,7 @@ tab1_content = dbc.Card(
 tab2_content = dbc.Card(
     dbc.CardBody(
         [
+        html.Div([
             html.Div([
                 dcc.Graph(
                         id='heatmap',
@@ -442,6 +440,7 @@ tab2_content = dbc.Card(
                     )
             ],style={'margin':'30px'})
             
+           ], style={'margin-left':'75px'}) 
         ]
     ),
     className="mt-3", style={'border': 'none', 'background-color': 'transparent','width': '100%', 'height': '100%'}
