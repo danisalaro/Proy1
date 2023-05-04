@@ -102,117 +102,64 @@ fig1.update_layout(
 #################################################################################################################
 
 
-df_mod = df_Cleveland
+from sqlalchemy import create_engine
 
-# para valores entre 0 y 110, 1
-#para valores entre 110 y 130, 2
-#para valores entre 130 y 150, 3
-#para valores entre 150 y 170, 4
-#para valores entre 170 y infiito, 5
+engine = create_engine('postgresql://postgres:proyecto2@proyecto2.cflupen1v64d.us-east-1.rds.amazonaws.com:5432/proyecto2')
 
-df_mod["Trestbps"] = np.where((df_mod["Trestbps"]<=110)&(df_mod["Trestbps"]>1),1,df_mod["Trestbps"])
-df_mod["Trestbps"] = np.where((df_mod["Trestbps"]<=130)&(df_mod["Trestbps"]>110),2,df_mod["Trestbps"])
-df_mod["Trestbps"] = np.where((df_mod["Trestbps"]<=150)&(df_mod["Trestbps"]>130),3,df_mod["Trestbps"])
-df_mod["Trestbps"] = np.where((df_mod["Trestbps"]<=170)&(df_mod["Trestbps"]>150),4,df_mod["Trestbps"])
-df_mod["Trestbps"] = np.where((df_mod["Trestbps"]<=10000)&(df_mod["Trestbps"]>170),5,df_mod["Trestbps"])
+samples = pd.read_sql('SELECT * FROM proy2', con=engine)
 
-#valores para edad
-
-df_mod["Age"] = np.where((df_mod["Age"]<=35)&(df_mod["Age"]>1),1,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=40)&(df_mod["Age"]>35),2,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=45)&(df_mod["Age"]>40),3,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=50)&(df_mod["Age"]>45),4,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=55)&(df_mod["Age"]>50),5,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=60)&(df_mod["Age"]>55),6,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=65)&(df_mod["Age"]>60),7,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=70)&(df_mod["Age"]>65),8,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=75)&(df_mod["Age"]>70),9,df_mod["Age"])
-df_mod["Age"] = np.where((df_mod["Age"]<=8000)&(df_mod["Age"]>75),10,df_mod["Age"])
-
-# CAMBIAR VALORES COLESTEROL
-# para valores entre 0 y 140, 1
-#para valores entre 140 y 180, 2
-#para valores entre 180 y 220, 3
-#para valores entre 220 y 260, 4
-#para valores entre 260 y 300, 5
-#para valores entre 300 y 340, 6
-#para valores entre 340 y 380, 7
-#para valores entre 380 y 420, 8
-#para valores entre 420 y 460, 9
-#para valores entre 500 y infinito, 10
-
-df_mod["Chol"] = np.where((df_mod["Chol"]<=140)&(df_mod["Chol"]>1),1,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=180)&(df_mod["Chol"]>140),2,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=220)&(df_mod["Chol"]>180),3,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=260)&(df_mod["Chol"]>220),4,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=300)&(df_mod["Chol"]>260),5,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=340)&(df_mod["Chol"]>300),6,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=380)&(df_mod["Chol"]>340),7,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=420)&(df_mod["Chol"]>380),8,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=460)&(df_mod["Chol"]>420),9,df_mod["Chol"])
-df_mod["Chol"] = np.where((df_mod["Chol"]<=8000)&(df_mod["Chol"]>460),10,df_mod["Chol"])
-
-
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=100)&(df_mod["Thalach"]>1),1,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=110)&(df_mod["Thalach"]>100),2,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=120)&(df_mod["Thalach"]>110),3,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=130)&(df_mod["Thalach"]>120),4,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=140)&(df_mod["Thalach"]>130),5,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=150)&(df_mod["Thalach"]>140),6,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=160)&(df_mod["Thalach"]>150),7,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=170)&(df_mod["Thalach"]>160),8,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=180)&(df_mod["Thalach"]>170),9,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=190)&(df_mod["Thalach"]>180),10,df_mod["Thalach"])
-df_mod["Thalach"] = np.where((df_mod["Thalach"]<=2000)&(df_mod["Thalach"]>190),11,df_mod["Thalach"])
-
-
-
-
-
-df_usar = df_mod[["Age","Sex","Trestbps","Chol","Fbs","Restecg","Num","Thalach","CP","Exang"]]
 from pgmpy.sampling import BayesianModelSampling
-samples = df_usar
-print (samples.head())
+   
+
+from pgmpy.estimators import HillClimbSearch
+from pgmpy.estimators import K2Score
+scoring_method = K2Score(data=samples)
+esth = HillClimbSearch(data=samples)
+estimated_modelh = esth.estimate(
+    scoring_method=scoring_method, max_indegree=7, max_iter=int(1e4),fixed_edges = {("Age","Chol"),("Sex","Chol"),("Chol","Num")},
+                                                                                    black_list = {("Trestbps","Age")})
+#
+print(estimated_modelh)
+print(estimated_modelh.nodes())
+print(estimated_modelh.edges())
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Crear el gráfico dirigido del modelo
+G = nx.DiGraph()
+for parent, child in estimated_modelh.edges():
+    G.add_edge(parent, child)
+
+# Dibujar el gráfico del modelo
+pos = nx.spring_layout(G, seed=42) # Asignar posiciones a los nodos
+nx.draw_networkx_nodes(G, pos, node_color="lightblue", node_size=500) # Dibujar nodos
+nx.draw_networkx_edges(G, pos, arrows=True) # Dibujar arcos con flechas
+nx.draw_networkx_labels(G, pos, font_size=10, font_family="sans-serif") # Agregar etiquetas de nodos
+
+plt.axis("off") # Ocultar los ejes
+plt.title("Modelo Estimado")
+plt.show() # Mostrar el gráfico
 
 
-
-model = BayesianNetwork ([("Age", "Chol") , ("Age", "Fbs"),("Age", "Restecg"),("Age", "Thalach"),
-                           ("Sex", "Chol"),("Sex", "Fbs"), ("Sex", "Restecg"),("Sex", "Thalach"),
-                           ("Chol","Num"),
-                           ("Fbs","Num"),
-                           ("Restecg","Num"),
-                           ("Thalach", "Num"),
-                           ("Num","Trestbps"), ("Num","CP"),("Num","Exang")])
-
-
-
+from pgmpy.models import BayesianNetwork
 from pgmpy.estimators import MaximumLikelihoodEstimator
-emv = MaximumLikelihoodEstimator( model,data=samples)
-cpdem_Age = emv.estimate_cpd(node="Age")
-#print (cpdem_Age)
-cpdem_Sex = emv.estimate_cpd(node="Sex")
-#print (cpdem_Sex)
-cpdem_Trestbps = emv.estimate_cpd(node="Trestbps")
-#print (cpdem_Trestbps)
-cpdem_Chol = emv.estimate_cpd(node="Chol")
-#print (cpdem_Chol)
-cpdem_Fbs = emv.estimate_cpd(node="Fbs")
-#print (cpdem_Fbs)
-cpdem_Num = emv.estimate_cpd(node="Num")
-#print (cpdem_Num)
-cpdem_Restecg = emv.estimate_cpd(node="Restecg")
-#print (cpdem_Restecg)
-cpdem_Thalach = emv.estimate_cpd(node="Thalach")
-#print (cpdem_Thalach)
-cpdem_CP = emv.estimate_cpd(node="CP")
-#print (cpdem_CP)
-cpdem_Exang = emv.estimate_cpd(node="Exang")
-#print (cpdem_Exang)
+
+estimated_model = BayesianNetwork(estimated_modelh)
+estimated_model.fit(data=samples, estimator = MaximumLikelihoodEstimator) 
+for i in estimated_model.nodes():
+    print(estimated_model.get_cpds(i))
 
 
-model.add_cpds(cpdem_Age , cpdem_Sex , cpdem_Trestbps ,cpdem_Chol,cpdem_Fbs,cpdem_Num,cpdem_Restecg,cpdem_Thalach,cpdem_CP,cpdem_Exang )
+
 from pgmpy.inference import VariableElimination
-infer = VariableElimination (model)
+infer = VariableElimination (estimated_model)
+
+
+
+
+
+
+
 app = dash.Dash(__name__)
 
 # Ruta de la imagen:
