@@ -1,8 +1,9 @@
-
+# -*- coding: utf-8 -*-
 """
-PROYECTO REALIZIADO POR: JUAN DIEGO PRADA y DANIEL FELIPE SALAZAR
+Created on Thu May  4 11:50:33 2023
+     
+@author: JUAN
 """
-
 import dash
 from dash import html
 from dash.dependencies import Input, Output
@@ -13,13 +14,17 @@ import plotly.express as px
 import plotly.graph_objects as go
 from pgmpy.models import BayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
-    
-   
+import dash_bootstrap_components as dbc
+
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.inference import VariableElimination
+from pgmpy.readwrite import XMLBIFReader
+
 df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
 
 print(df_Cleveland)
-
 ################################################################################################
 #--------------------------------------VISUALIZACIONES-----------------------------------------#
 ###############################################################################################
@@ -97,65 +102,12 @@ fig1.update_layout(
     height=500
 )
 
-#################################################################################################################
-#--------------------------------------CONSTRUCCIÓN DE LA RED BAYESIANA-----------------------------------------#
-#################################################################################################################
 
 
-from sqlalchemy import create_engine
-
-engine = create_engine('postgresql://postgres:proyecto2@proyecto2.cflupen1v64d.us-east-1.rds.amazonaws.com:5432/proyecto2')
-
-samples = pd.read_sql('SELECT * FROM proyecto2', con=engine)
-
-from pgmpy.sampling import BayesianModelSampling
-           
-
-from pgmpy.estimators import HillClimbSearch
-from pgmpy.estimators import K2Score
-scoring_method = K2Score(data=samples)
-esth = HillClimbSearch(data=samples)
-estimated_modelh = esth.estimate(
-    scoring_method=scoring_method, max_indegree=7, max_iter=int(1e4),fixed_edges = {("Age","Chol"),("Sex","Chol"),("Chol","Num")},
-                                                                                    black_list = {("Trestbps","Age")})
-#
-print(estimated_modelh)
-print(estimated_modelh.nodes())
-print(estimated_modelh.edges())
-import networkx as nx
-import matplotlib.pyplot as plt
-
-# Crear el gráfico dirigido del modelo
-G = nx.DiGraph()
-for parent, child in estimated_modelh.edges():
-    G.add_edge(parent, child)
-
-# Dibujar el gráfico del modelo
-pos = nx.spring_layout(G, seed=42) # Asignar posiciones a los nodos
-nx.draw_networkx_nodes(G, pos, node_color="lightblue", node_size=500) # Dibujar nodos
-nx.draw_networkx_edges(G, pos, arrows=True) # Dibujar arcos con flechas
-nx.draw_networkx_labels(G, pos, font_size=10, font_family="sans-serif") # Agregar etiquetas de nodos
-
-plt.axis("off") # Ocultar los ejes
-plt.title("Modelo Estimado")
-plt.show() # Mostrar el gráfico
-     
-
-from pgmpy.models import BayesianNetwork
-from pgmpy.estimators import MaximumLikelihoodEstimator
-
-estimated_model = BayesianNetwork(estimated_modelh)
-estimated_model.fit(data=samples, estimator = MaximumLikelihoodEstimator) 
-for i in estimated_model.nodes():
-    print(estimated_model.get_cpds(i))
-
-
-
-from pgmpy.inference import VariableElimination
+# Read model from XML BIF file 
+reader = XMLBIFReader("monty.xml")
+estimated_model = reader.get_model()
 infer = VariableElimination (estimated_model)
-
-
-
 
 
 
