@@ -116,8 +116,35 @@ from pgmpy.estimators import K2Score
 scoring_method = K2Score(data=samples)
 esth = HillClimbSearch(data=samples)
 estimated_modelh = esth.estimate(
-    scoring_method=scoring_method, max_indegree=7, max_iter=int(1e4),fixed_edges = {("Age","Chol"),("Sex","Chol"),("Chol","Num")},
-                                                                                    black_list = {("Trestbps","Age")})
+    scoring_method=scoring_method, max_indegree=7, max_iter=int(1e4),fixed_edges = {("Age","Chol"),("Sex","Chol"),
+                                                                                    ("Chol","Num"),("Trestbps","Num"),
+                                                                                   ("Num","Exang"),
+                                                                                   ("Num","Thalach"),
+                                                                                   ("Fbs","Num"),
+                                                                                   ("Exang","CP"),
+                                                                                   },
+                                                                                    black_list = {("Trestbps","Age"),
+                                                                                                 ("Sex","Age"),
+                                                                                                 ("Chol","Age"),
+                                                                                                 ("Num","Age"),
+                                                                                                 ("CP","Age"),
+                                                                                                 ("Exang","Age"),
+                                                                                                  ("Thalach","Age"),
+                                                                                                  ("Fbs","Age"),
+                                                                                                  ("Restecg","Age"),
+                                                                                                  ("Trestbps","Sex"),
+                                                                                                 ("Age","Sex"),
+                                                                                                 ("Chol","Sex"),
+                                                                                                 ("Num","Sex"),
+                                                                                                 ("CP","Sex"),
+                                                                                                 ("Exang","Sex"),
+                                                                                                  ("Thalach","Sex"),
+                                                                                                  ("Fbs","Sex"),
+                                                                                                  ("Restecg","Sex"),
+                                                                                                    ("Exang","Thalach"),
+                                                                                                  ("CP","Exang")
+                                                                                                 })
+
 #
 print(estimated_modelh)
 print(estimated_modelh.nodes())
@@ -421,3 +448,4 @@ if __name__ == '__main__':
     app.run_server(debug=False)
     
 
+      

@@ -20,6 +20,14 @@ from pgmpy.models import BayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 from pgmpy.readwrite import XMLBIFReader
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+
+from pgmpy.readwrite import XMLBIFReader
+
+from pgmpy.readwrite import XMLBIFReader
 
 df_Cleveland = pd.read_csv('cleveland.data',
                            names =["Age","Sex","CP","Trestbps","Chol","Fbs","Restecg","Thalach","Exang","Oldpeak","Slope","Ca","Thal","Num"])
@@ -102,12 +110,14 @@ fig1.update_layout(
     height=500
 )
 
-
-
 # Read model from XML BIF file 
 reader = XMLBIFReader("monty.xml")
 estimated_model = reader.get_model()
+
+from pgmpy.inference import VariableElimination
 infer = VariableElimination (estimated_model)
+
+
 
 
 
@@ -372,4 +382,9 @@ def run_query(n_clicks, age, trestbps, chol, fbs, sex, restecg, thalach,cp,exang
 if __name__ == '__main__':
     app.run_server(debug=False)
     
+
+
+
+
+
 

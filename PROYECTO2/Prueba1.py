@@ -166,4 +166,4 @@ writer = XMLBIFWriter(estimated_model)
 writer.write_xmlbif('monty.xml')
    
 
-    
+
